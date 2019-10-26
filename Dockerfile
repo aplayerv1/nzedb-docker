@@ -1,4 +1,4 @@
-FROM ubuntu:yakkety
+FROM ubuntu:16.04
 LABEL maintainer "Grimeton (Grimages) <grimages@fullmesh.de>"
 
 ARG S6_VERSION="v1.19.1.1"
