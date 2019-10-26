@@ -7,7 +7,7 @@ ARG LANG="en_US.UTF-8"
 ARG LC_ALL="C.UTF-8"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TERM="xterm-256color"
-RUN apt-get update; apt-get install software-properties-common; apt-add-repository -y ppa:ondrej/php
+RUN apt-get update; apt-get install -y software-properties-common; apt-add-repository -y ppa:ondrej/php
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils locales\
     && DEBIAN_FRONTEND=noninteractive apt-get -y install \
