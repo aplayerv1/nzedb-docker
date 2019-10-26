@@ -6,6 +6,7 @@ echo "==========================================================================
 echo "Converting templates."
 echo "================================================================================"
 echo ""
+chmod 777 /opt/scripts/mm.pl
 /opt/scripts/mm.pl /opt/files/config/;
 lastexec=$?;
 __exit $lastexec;
