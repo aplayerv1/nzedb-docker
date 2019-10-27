@@ -38,7 +38,7 @@ RUN apt-get update \
         php7.2-fpm \
         php7.2-intl \
         php7.2-mbstring \
-        php7.2-mcrypt \
+        php-mcrypt \
         php7.2-soap \
         php7.2-xsl \
         php7.2-zip \
