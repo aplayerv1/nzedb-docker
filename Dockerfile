@@ -55,6 +55,7 @@ RUN apt-get clean \
         /var/lib/apt/lists/* \
         /var/tmp/*
 EXPOSE 80 443
+RUN cd /tmp/ && curl -sS https://getcomposer.org/installer -o composer-setup.php && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 HEALTHCHECK NONE
 COPY rootfs/ /
 RUN chmod +x -R /opt/scripts
