@@ -57,4 +57,5 @@ RUN apt-get clean \
 EXPOSE 80 443
 HEALTHCHECK NONE
 COPY rootfs/ /
+RUN chmod +x -R /opt/scripts
 ENTRYPOINT ["/init"]
