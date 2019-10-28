@@ -19,13 +19,13 @@ echo "--- Done."
 echo ""
 echo "=== Running composer install on nZEDb directory."
 echo ""
-composer --no-ansi install || exit 6;
+#composer --no-ansi install || exit 6;
 echo ""
 echo "--- Done."
 echo ""
 echo "=== Installing additional modules required."
 echo ""
-composer --no-ansi require league/oauth2-google || exit 7;
+#composer --no-ansi require league/oauth2-google || exit 7;
 echo ""
 echo "--- Done."
 exit 0;
