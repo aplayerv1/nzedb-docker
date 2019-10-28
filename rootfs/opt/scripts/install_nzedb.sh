@@ -12,7 +12,8 @@ cd "${_PATH_INSTALL_ROOT}" || exit 4;
 echo ""
 echo "=== Cloning nZEDb from https://github.com/nZEDb/nZEDb.git to ${_PATH_INSTALL_ROOT}"
 echo ""
-git clone https://github.com/nZEDb/nZEDb.git . || exit 5;
+#git clone https://github.com/nZEDb/nZEDb.git . || exit 5;
+composer create-project --no-dev --keep-vcs --prefer-source nzedb/nzedb nzedb \
 echo ""
 echo "--- Done."
 echo ""
