@@ -10,6 +10,8 @@ ARG TERM="xterm-256color"
 #RUN apt-get update; apt-get install -y software-properties-common; apt-add-repository -y ppa:ondrej/php
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils locales\
+	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C \
+	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C \
     && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu xenial main" >> /etc/apt/sources.list \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main" >> /etc/apt/sources.list \
     && apt-get update \
