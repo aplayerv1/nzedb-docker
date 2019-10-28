@@ -8,10 +8,12 @@ ARG LC_ALL="C.UTF-8"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TERM="xterm-256color"
 #RUN apt-get update; apt-get install -y software-properties-common; apt-add-repository -y ppa:ondrej/php
-RUN DEBIAN_FRONTEND=noninteractive echo "deb http://ppa.launchpad.net/nginx/development/ubuntu xenial main" >> /etc/apt/sources.list \
+RUN apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils locales\
+    && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu xenial main" >> /etc/apt/sources.list \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main" >> /etc/apt/sources.list \
     && apt-get update \
-    && apt-get install -y -q --no-install-recommends app-utils \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends app-utils \
 		ca-certificates \
 		nginx \
         curl \
