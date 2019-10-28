@@ -7,6 +7,7 @@ ARG LANG="en_US.UTF-8"
 ARG LC_ALL="C.UTF-8"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TERM="xterm-256color"
+ENV NGINX_VERSION 1.11.5-0+xenial0
 #RUN apt-get update; apt-get install -y software-properties-common; apt-add-repository -y ppa:ondrej/php
 RUN apt-get update \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C \
@@ -17,7 +18,7 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y -q --no-install-recommends \
       ca-certificates \
-      nginx \
+      nginx=${NGINX_VERSION} \
       gettext-base \
       git \
       php-pear \
