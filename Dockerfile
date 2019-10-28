@@ -13,46 +13,35 @@ RUN apt-get update \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C \
     && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu xenial main" >> /etc/apt/sources.list \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main" >> /etc/apt/sources.list \
+	&& echo "deb http://archive.ubuntu.com/ubuntu/ xenial multiverse" >> /etc/apt/sources.list \
     && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends app-utils \
-		ca-certificates \
-		nginx \
-        curl \
-        ffmpeg \
-        gettext-base \
-        git \
-        libtext-micromason-perl \
-        mediainfo \
-        #nginx-extras \
-        p7zip-full \
-        php7.0 \
-        php7.0-cgi \
-        php7.0-cli \
-        php7.0-common \
-        php7.0-curl \
-        php7.0-gd \
-        php7.0-json \
-        php7.0-mysql \
-        php7.0-readline \
-        php7.0-recode \
-        php7.0-tidy \
-        php7.0-xml \
-        php7.0-xmlrpc \
-        php7.0-bcmath \
-        php7.0-bz2 \
-        php7.0-dba \
-        php7.0-fpm \
-        php7.0-intl \
-        php7.0-mbstring \
-        php7.0-mcrypt \
-        php7.0-soap \
-        php7.0-xsl \
-        php7.0-zip \
-        php-imagick \
-        php-pear \
-        tzdata \
-        unrar \
-    && locale-gen $LANG
+    && apt-get install -y -q --no-install-recommends \
+      ca-certificates \
+      nginx \
+      gettext-base \
+      git \
+      php-pear \
+      php7.0 \
+      php7.0-cli \
+      php7.0-dev \
+      php7.0-common \
+      php7.0-curl \
+      php7.0-json \
+      php7.0-gd \
+      php7.0-mysql \
+      php7.0-mbstring \
+      php7.0-mcrypt \
+      php7.0-xml\
+      php7.0-fpm \
+      php7.0-opcache \
+      php7.0-bz2 \
+      unrar \
+      p7zip-full \
+      mediainfo \
+      lame \
+      ffmpeg \
+      libav-tools \
+      build-essential 
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz"
 RUN tar xfz /tmp/s6.tar.gz -C /
 RUN apt-get clean \
