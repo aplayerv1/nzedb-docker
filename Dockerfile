@@ -13,7 +13,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C \
     && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu xenial main" >> /etc/apt/sources.list \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main" >> /etc/apt/sources.list \
-    && echo "deb http://archive.ubuntu.com/ubuntu/ xenial multiverse" >> /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -y -q --no-install-recommends \
 		ca-certificates \
