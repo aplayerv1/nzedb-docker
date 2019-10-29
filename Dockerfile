@@ -7,14 +7,11 @@ ARG LANG="en_US.UTF-8"
 ARG LC_ALL="C.UTF-8"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TERM="xterm-256color"
-ENV NGINX_VERSION 1.11.5-0+xenial0
-#RUN apt-get update; apt-get install -y software-properties-common; apt-add-repository -y ppa:ondrej/php
 RUN apt-get update \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C \
     && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu xenial main" >> /etc/apt/sources.list \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main" >> /etc/apt/sources.list \
-	&& echo "deb http://archive.ubuntu.com/ubuntu/ xenial multiverse" >> /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -y -q --no-install-recommends \
       ca-certificates \
@@ -53,7 +50,7 @@ RUN apt-get update \
       ffmpeg \
       libav-tools \
       build-essential 
-ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz"
+ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
 RUN tar xfz /tmp/s6.tar.gz -C /
 RUN apt-get clean \
     && rm -rf \
