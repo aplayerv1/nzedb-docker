@@ -11,10 +11,6 @@ chmod 777 /opt/scripts/mm.pl
 lastexec=$?;
 __exit $lastexec;
 
-cp /opt/files/files/default.conf /etc/nginx/sites-enabled/default
-cp /opt/files/files/php.ini /etc/php/7.1/fpm/php.ini
-
-
 #echo "=== Converting nginx configuration template."
 #envsubst '$_PATH_INSTALL_ROOT $_PATH_WEB_RESOURCES $_PATH_WEB_SERVER_ROOT $_WEB_ROOT $_WEB_ROOT_BASE $_WEB_SERVER_HTTP_PORT $_WEB_SERVER_HTTPS_PORT $_WEB_SERVER_NAME' < /opt/files/config/nginx.conf.tpl > /etc/nginx/sites-available/default || exit 5;
 #echo "--- Done."
