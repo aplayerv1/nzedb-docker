@@ -45,6 +45,7 @@ RUN apt-get update \
         php7.1-soap \
         php7.1-xsl \
         php7.1-zip \
+		php-imagick \
       unrar \
       p7zip-full \
       mediainfo \
