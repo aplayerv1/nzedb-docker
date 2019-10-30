@@ -54,7 +54,8 @@ RUN apt-get update \
 	   autotools-dev \
 	   automake \
 	   libevent-dev \
-	   ncurses-dev
+	   ncurses-dev \
+	   curl
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
 RUN tar xfz /tmp/s6.tar.gz -C /
 RUN apt-get clean \
