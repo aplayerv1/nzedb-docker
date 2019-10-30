@@ -6,7 +6,7 @@ REFRESH_POSTPROCESS_OPTIONS="${_REFRESH_POSTPROCESS_OPTIONS:-nfo mov tv ama}";
 until [[ -f "/opt/http/configuration/install.lock" ]]; do
     sleep 10;
 done
-if (true); then
+if [ -f "/opt/http/configuration/install.lock" ]; then
     echo "Importing predb"
     su - www-data -s /bin/bash -c "$(which php)  /opt/http/cli/data/predb_import_daily_batch.php 0 local true"
 fi
