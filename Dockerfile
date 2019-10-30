@@ -50,7 +50,11 @@ RUN apt-get update \
       lame \
       ffmpeg \
       libav-tools \
-      build-essential 
+      build-essential \
+	   autotools-dev \
+	   automake \
+	   libevent-dev \
+	   ncurses-dev
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
 RUN tar xfz /tmp/s6.tar.gz -C /
 RUN apt-get clean \
