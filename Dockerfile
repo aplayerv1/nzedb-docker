@@ -43,6 +43,7 @@ RUN apt-get update \
         php7.1-xsl \
         php7.1-zip \
 		php-imagick \
+		mysql-client \
       unrar \
       p7zip-full \
       mediainfo \
