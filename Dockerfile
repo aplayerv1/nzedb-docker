@@ -1,4 +1,4 @@
-FROM samtayuk/base:16.04
+FROM ubuntu:18.04
 LABEL maintainer ""
 ARG S6_VERSION="v1.19.1.1"
 ARG S6_ARCH="amd64"
