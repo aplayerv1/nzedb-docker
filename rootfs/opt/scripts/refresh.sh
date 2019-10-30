@@ -9,7 +9,7 @@ done
 if (true); then
     echo "Importing predb"
     su - www-data -s /bin/bash -c "$(which php)  /opt/http/cli/data/predb_import_daily_batch.php 0 local true"
-done
+fi
 
 while (true); do
     su - www-data -s /bin/bash -c "$(which php) /opt/http/misc/update/nix/multiprocessing/binaries.php 0";
