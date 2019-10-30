@@ -62,6 +62,7 @@ RUN apt-get clean \
         /tmp/* \
         /var/lib/apt/lists/* \
         /var/tmp/*
+RUN cd /tmp/ && git clone https://github.com/tmux/tmux.git --branch 2.0 --single-branch && cd tmux/ && ./autogen.sh && ./configure && make -j4 && make install
 RUN yes | perl -MCPAN -e 'install Text::MicroMason'
 EXPOSE 80 443
 RUN cd /tmp/ && curl -sS https://getcomposer.org/installer -o composer-setup.php && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
