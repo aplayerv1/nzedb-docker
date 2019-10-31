@@ -111,6 +111,39 @@ A full blown "installation" would look something like this:
         -v /nzedbresources:/data \
         grimages/nzedb:latest
 
+OR docker-compose
+
+   nzedb:
+    container_name: nzedb
+    image: aplayerv1/nzedb:latest
+    restart: always
+    volumes:
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+      - PATH TO RESOURCES:/data
+      - PATH TO MYSQLD SOCK:/var/run/mysqld:ro ( if on same machine)
+      - PATH TO CONFIG:/opt/config
+    environment:
+      - TZ= TIME ZONE (America\New_York EG)
+      - PATH_INSTALL_ROOT=/opt/http
+      - PATH_WEB_RESOURCES=/data/resources
+      - PATH_WEB_SERVER_ROOT=/opt/http/www
+      - PATH_CUSTOM_CONFIG=/opt/config
+      - PHP_MAX_EXECUTION_TIME=120
+      - PHP_MEMORY_LIMIT=1G
+      - PHP_TIMEZONE=  (PHP TIME ZONE)
+      - REFRESH_POSTPROCESS_OPTIONS=nfo mov tv ama
+      - RUN_WEB_SERVER=1
+      - RUN_REFRESH=1
+      - WEB_ROOT=/
+      - WEB_SERVER_HTTP_PORT=80
+      - WEB_SERVER_HTTPS_PORT=443
+      - WEB_SERVER_NAME= IP
+      - GIT_TOKEN= GIT TOKEN
+    ports:
+      - 80:80
+      - 443:443
+    network_mode: host
+
 Usually it's fine to just setup the mandatory options:
 
 
