@@ -21,11 +21,11 @@ done
 #done
 if (true); then
     if ! screen -list | grep -q "tmux"; then
-        echo "screen is running."
+        echo "Preparing Life"
+        cp /opt/http/misc/nix/screen/squential/threaded.sh /opt/http/misc/nix/screen/squential/user_threaded.sh
+        screen -d -m -S tmux /bin/bash -c 'su - www-data -s /bin/bash -c php /opt/http/misc/nix/tmux/start.php'
     else
-        cd /opt/http/misc/nix/tmux
-        ls
-        screen -d -m -S tmux bash -c 'su - www-data -s /bin/bash -c php start.php'
+       echo "screen is running"
     fi
 fi
  
