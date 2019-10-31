@@ -18,7 +18,8 @@ done
 #         su - www-data -s /bin/bash -c "$(which php) /opt/http/misc/update/nix/multiprocessing/postprocess.php $pparm";
 #     done
 #     sleep 60;
+#done
 if (true); then
-    su - www-data -s /bin/bash -c "$(which php) /opt/http/misc/update/nix/tmux/start.php"
+   screen -d -m -S tmux bash -c 'su - www-data -s /bin/bash -c "$(which php) /opt/http/misc/update/nix/tmux/start.php"'
 fi
  
