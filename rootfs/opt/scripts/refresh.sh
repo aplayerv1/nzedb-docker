@@ -23,7 +23,9 @@ if (true); then
     if ! screen -list | grep -q "tmux"; then
         echo "screen is running."
     else
-        screen -d -m -S tmux bash -c 'su - www-data -s /bin/bash -c "$(which php) /opt/http/misc/update/nix/tmux/start.php"'
+        cd /opt/http/misc/nix/tmux
+        ls
+        screen -d -m -S tmux bash -c 'su - www-data -s /bin/bash -c php start.php'
     fi
 fi
  
