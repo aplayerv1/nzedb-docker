@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 LABEL maintainer "Aplayerv1"
 ARG S6_VERSION="v1.19.1.1"
 ARG S6_ARCH="amd64"
@@ -25,6 +25,7 @@ RUN apt-get update \
       php7.1-common \
       php7.1-curl \
       php7.1-gd \
+      iputils-ping \
       php7.1-json \
       php7.1-mysql \
       php7.1-readline \
