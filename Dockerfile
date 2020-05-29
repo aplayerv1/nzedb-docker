@@ -18,7 +18,6 @@ RUN apt-get update \
       nginx \
       gettext-base \
       git \
-      ping \
       php-pear \
       php7.1 \
       php7.1-cgi \
