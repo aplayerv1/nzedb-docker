@@ -67,7 +67,7 @@ RUN apt-get update \
 	  software-properties-common
 RUN apt-get update
 RUN add-apt-repository ppa:builds/sphinxsearch-rel22 -y 
-RUN apt install sphinxsearch
+RUN apt install sphinxsearch -y
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
 RUN tar xfz /tmp/s6.tar.gz -C /
 RUN apt-get clean \
