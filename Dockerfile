@@ -85,4 +85,5 @@ RUN cd /usr/local/ && mkdir ssl && cd ssl/ && wget  https://curl.haxx.se/ca/cace
 HEALTHCHECK NONE
 COPY rootfs/ /
 RUN chmod +x -R /opt/scripts
+RUN echo "START=yes" > /etc/default/sphinxsearch
 ENTRYPOINT ["/init"]
