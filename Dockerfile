@@ -44,27 +44,29 @@ RUN apt-get update \
       php7.1-soap \
       php7.1-xsl \
       php7.1-zip \
-	  php-imagick \
-	  mysql-client \
-	  unrar \
-	  p7zip-full \
-	  mediainfo \
-	  lame \
-	  ffmpeg \
-	  libav-tools \
-	  build-essential \
-	  autotools-dev \
-	  automake \
-	  libevent-dev \
-	  ncurses-dev \
-	  autotools-dev \
-	  automake \
-	  pkg-config \
-	  python \
-	  curl \
-	  time \
-	  screen\
-	  software-properties-common
+      php7.1-memcached \
+      php-imagick \
+      mysql-client \
+      unrar \
+      p7zip-full \
+      mediainfo \
+      lame \
+      ffmpeg \
+      libav-tools \
+      build-essential \
+      autotools-dev \
+      automake \
+      libevent-dev \
+      ncurses-dev \
+      autotools-dev \
+      automake \
+      pkg-config \
+      python \
+      curl \
+      time \
+      screen \
+      software-properties-common \
+      nano
 RUN apt-get update
 RUN add-apt-repository ppa:builds/sphinxsearch-rel22 -y 
 RUN apt install sphinxsearch -y
