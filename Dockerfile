@@ -68,8 +68,6 @@ RUN apt-get update \
       software-properties-common \
       nano
 RUN apt-get update
-RUN add-apt-repository ppa:builds/sphinxsearch-rel22 -y 
-RUN apt install sphinxsearch -y
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
 RUN tar xfz /tmp/s6.tar.gz -C /
 RUN apt-get clean \
@@ -85,5 +83,4 @@ RUN cd /usr/local/ && mkdir ssl && cd ssl/ && wget  https://curl.haxx.se/ca/cace
 HEALTHCHECK NONE
 COPY rootfs/ /
 RUN chmod +x -R /opt/scripts
-RUN echo "START=yes" > /etc/default/sphinxsearch
 ENTRYPOINT ["/init"]

@@ -20,6 +20,12 @@ done
 #     sleep 60;
 #done
 if (true); then
+    echo "SphinxSearch"
+    cd /opt/http/misc/sphinxsearch
+    echo "Creating Se Tables"
+    php create_se_tables.php 0 9312
+    echo "Populating rt_indexes"
+    php populate_rt_indexes.php releases_rt
     if ! screen -list | grep -q "tmux"; then
         echo "Preparing Life"
         cp /opt/http/misc/update/nix/screen/sequential/threaded.sh /opt/http/misc/update/nix/screen/sequential/user_threaded.sh
