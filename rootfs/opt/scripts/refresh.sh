@@ -19,12 +19,6 @@ done
 #     done
 #     sleep 60;
 #done
-    echo "SphinxSearch"
-    cd /opt/http/misc/sphinxsearch
-    echo "Creating Se Tables"
-    php create_se_tables.php 0 9312
-    echo "Populating rt_indexes"
-    php populate_rt_indexes.php releases_rt
 if (true); then
     if ! screen -list | grep -q "tmux"; then
         echo "Preparing Life"
