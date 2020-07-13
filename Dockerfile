@@ -30,6 +30,10 @@ RUN apt-get update \
       iputils-ping \
       php7.2-memcached \
       php-imagick \
+      php7.2-dev \
+      php7.2-mbstring \
+      php7.2-xml \
+      curl \
       mysql-client \
       unrar \
       p7zip-full \
