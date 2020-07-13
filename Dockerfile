@@ -52,7 +52,6 @@ RUN apt-get update \
       mediainfo \
       lame \
       ffmpeg \
-      libav-tools \
       build-essential \
       autotools-dev \
       automake \
