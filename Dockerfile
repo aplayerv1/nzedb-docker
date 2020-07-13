@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 LABEL maintainer "Aplayerv1"
 ARG S6_VERSION="v1.19.1.1"
 ARG S6_ARCH="amd64"
@@ -20,31 +20,31 @@ RUN apt-get update \
       git \
       wget \
       php-pear \
-      php7.1 \
-      php7.1-cgi \
-      php7.1-cli \
-      php7.1-common \
-      php7.1-curl \
-      php7.1-gd \
+      php7.2 \
+      php7.2-cgi \
+      php7.2-cli \
+      php7.2-common \
+      php7.2-curl \
+      php7.2-gd \
       iputils-ping \
-      php7.1-json \
-      php7.1-mysql \
-      php7.1-readline \
-      php7.1-recode \
-      php7.1-tidy \
-      php7.1-xml \
-      php7.1-xmlrpc \
-      php7.1-bcmath \
-      php7.1-bz2 \
-      php7.1-dba \
-      php7.1-fpm \
-      php7.1-intl \
-      php7.1-mbstring \
-      php7.1-mcrypt \
-      php7.1-soap \
-      php7.1-xsl \
-      php7.1-zip \
-      php7.1-memcached \
+      php7.2-json \
+      php7.2-mysql \
+      php7.2-readline \
+      php7.2-recode \
+      php7.2-tidy \
+      php7.2-xml \
+      php7.2-xmlrpc \
+      php7.2-bcmath \
+      php7.2-bz2 \
+      php7.2-dba \
+      php7.2-fpm \
+      php7.2-intl \
+      php7.2-mbstring \
+      php7.2-mcrypt \
+      php7.2-soap \
+      php7.2-xsl \
+      php7.2-zip \
+      php7.2-memcached \
       php-imagick \
       mysql-client \
       unrar \
