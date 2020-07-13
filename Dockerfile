@@ -13,6 +13,7 @@ RUN apt-get update \
     && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu bionic main" >> /etc/apt/sources.list \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu bionic main" >> /etc/apt/sources.list \
     && apt-get update \
+    && apt-get install -y gnupg2 \
     && apt-get install -y -q --no-install-recommends \
       ca-certificates \
       nginx \
