@@ -113,36 +113,34 @@ A full blown "installation" would look something like this:
 
 OR docker-compose
 
-   nzedb:
+  nzedb:
     container_name: nzedb
     image: aplayerv1/nzedb:latest
     restart: always
     volumes:
-      - /etc/ssl/certs:/etc/ssl/certs:ro
-      - PATH TO RESOURCES:/data
-      - PATH TO MYSQLD SOCK:/var/run/mysqld:ro ( if on same machine)
-      - PATH TO CONFIG:/opt/config
+      - /LOCAL/DISK/LOCATION/CONFIG:/opt/config/nzedb
+      - /LOCAL/DISK/LOCATION:/opt/http
+
     environment:
-      - TZ= TIME ZONE (America\New_York EG)
+      - TZ=Europe/Lisbon
       - PATH_INSTALL_ROOT=/opt/http
-      - PATH_WEB_RESOURCES=/data/resources
+      - PATH_WEB_RESOURCES=/opt/http/resources
       - PATH_WEB_SERVER_ROOT=/opt/http/www
       - PATH_CUSTOM_CONFIG=/opt/config
       - PHP_MAX_EXECUTION_TIME=120
       - PHP_MEMORY_LIMIT=1G
-      - PHP_TIMEZONE=  (PHP TIME ZONE)
+      - PHP_TIMEZONE=Europe/Lisbon
       - REFRESH_POSTPROCESS_OPTIONS=nfo mov tv ama
       - RUN_WEB_SERVER=1
       - RUN_REFRESH=1
       - WEB_ROOT=/
       - WEB_SERVER_HTTP_PORT=80
       - WEB_SERVER_HTTPS_PORT=443
-      - WEB_SERVER_NAME= IP
-      - GIT_TOKEN= GIT TOKEN
+      - WEB_SERVER_NAME= IP ADDRESS
+      - GIT_TOKEN=4b96bb07809e526e558086cd7b20c5559e0a21d1
     ports:
       - 80:80
-      - 443:443
-    network_mode: host
+      - 4443:443
 
 Usually it's fine to just setup the mandatory options:
 
