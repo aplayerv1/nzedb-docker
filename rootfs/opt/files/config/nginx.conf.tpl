@@ -61,6 +61,6 @@ server {
             fastcgi_buffering off;
             fastcgi_index index.php;
             fastcgi_param SCRIPT_FILENAME $document_root$1;
-            fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+            fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
         }
     }
