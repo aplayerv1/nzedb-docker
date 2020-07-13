@@ -67,6 +67,7 @@ RUN apt-get update \
       screen \
       software-properties-common \
       nano
+RUN ln -s /etc/php/7.1/mods-available/mcrypt.ini /etc/php/7.2/mods-available
 RUN cd /tmp && wget http://launchpadlibrarian.net/339874908/libav-tools_3.3.4-2_all.deb && dpkg -i libav-tools_3.3.4-2_all.deb
 RUN apt-get update
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
