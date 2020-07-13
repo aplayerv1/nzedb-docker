@@ -1,4 +1,4 @@
-#####/etc/php/7.1/cli/php.ini#####
+#####/etc/php/7.2/cli/php.ini#####
 [PHP]
 engine = On
 short_open_tag = Off

@@ -1,4 +1,4 @@
-#####/etc/php/7.1/fpm/php.ini#####
+#####/etc/php/7.2/fpm/php.ini#####
 [PHP]
 engine = On
 short_open_tag = Off
@@ -140,7 +140,6 @@ soap.wsdl_cache_limit = 5
 [sysvshm]
 [ldap]
 ldap.max_links = -1
-[mcrypt]
 [dba]
 [opcache]
 [curl]
