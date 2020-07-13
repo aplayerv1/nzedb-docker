@@ -8,12 +8,12 @@ ARG LC_ALL="C.UTF-8"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TERM="xterm-256color"
 RUN apt-get update \
+    && apt-get install -y gnupg2  \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C \
     && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu bionic main" >> /etc/apt/sources.list \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu bionic main" >> /etc/apt/sources.list \
     && apt-get update \
-    && apt-get install -y gnupg2 \
     && apt-get install -y -q --no-install-recommends \
       ca-certificates \
       nginx \
