@@ -8,7 +8,7 @@ ARG LC_ALL="C.UTF-8"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TERM="xterm-256color"
 RUN apt-get update \
-    && apt-get install -y gnupg2 
+    && apt-get install -y gnupg2 wget
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C \
     && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu bionic main" >> /etc/apt/sources.list \
@@ -19,7 +19,6 @@ RUN apt-get update \
       nginx \
       gettext-base \
       git \
-      wget \
       php-pear \
       php7.2 \
       php7.2-cgi \
@@ -41,7 +40,7 @@ RUN apt-get update \
       php7.2-fpm \
       php7.2-intl \
       php7.2-mbstring \
-      php-mcrypt \
+      php7.1-mcrypt \
       php7.2-soap \
       php7.2-xsl \
       php7.2-zip \
