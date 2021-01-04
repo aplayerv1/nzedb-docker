@@ -58,16 +58,13 @@ RUN apt-get update \
       software-properties-common \
       nano \
       iproute2 \
-      mysqlcommon \
+      mysql-common \
       libodbc1 \
       unixodbc \
       zlib1g \
       libc6 \
       libstdc++6 \
-      libmysqlclient18 \
-      libpq5  \
-      upstart-job 
-RUN cd /tmp && wget http://sphinxsearch.com/files/sphinxsearch_2.2.10-release-0ubuntu12~precise_amd64.deb && dpkg -i sphinxsearch_2.2.10-release-0ubuntu12~precise_amd64.deb
+      libpq5 
 RUN cd /tmp && git clone https://github.com/igbinary/igbinary.git && cd igbinary && phpize && ./configure CFLAGS="-02 -g" --enable-igbinary && make && make test && make install && echo "extension=igbinary.so" > /etc/php/7.2/mods-available/igbinary.ini
 RUN cd /tmp && git clone https://github.com/nicolasff/phpredis.git && cd /tmp/phpredis && ./configure && make && make install && echo "extension=redis.so" > /etc/php/7.2/mods-available/redis.ini
 RUN cd /tmp && wget http://launchpadlibrarian.net/339874908/libav-tools_3.3.4-2_all.deb && dpkg -i libav-tools_3.3.4-2_all.deb
