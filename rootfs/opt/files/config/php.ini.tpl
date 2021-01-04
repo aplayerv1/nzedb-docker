@@ -114,7 +114,7 @@ session.cookie_lifetime = 0
 session.cookie_path = /
 session.cookie_domain =
 session.cookie_httponly =
-session.serialize_handler = php
+session.serialize_handler = igbinary
 session.gc_probability = 0
 session.gc_divisor = 1000
 session.gc_maxlifetime = 1440
@@ -145,3 +145,4 @@ ldap.max_links = -1
 [opcache]
 [curl]
 [openssl]
+

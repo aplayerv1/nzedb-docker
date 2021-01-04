@@ -1,4 +1,4 @@
-#####/etc/php/7.2/cli/php.ini#####
+#####/etc/php/7.2/fpm/php.ini#####
 [PHP]
 engine = On
 short_open_tag = Off
@@ -8,7 +8,7 @@ zlib.output_compression = Off
 implicit_flush = Off
 unserialize_callback_func =
 serialize_precision = 17
-;disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,
+disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,
 disable_classes =
 zend.enable_gc = On
 expose_php = Off
@@ -114,7 +114,7 @@ session.cookie_lifetime = 0
 session.cookie_path = /
 session.cookie_domain =
 session.cookie_httponly =
-session.serialize_handler = php
+session.serialize_handler = igbinary
 session.gc_probability = 0
 session.gc_divisor = 1000
 session.gc_maxlifetime = 1440
@@ -141,8 +141,8 @@ soap.wsdl_cache_limit = 5
 [sysvshm]
 [ldap]
 ldap.max_links = -1
-[mcrypt]
 [dba]
 [opcache]
 [curl]
 [openssl]
+
