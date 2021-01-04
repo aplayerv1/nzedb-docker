@@ -103,7 +103,8 @@ pgsql.log_notice = 0
 bcmath.scale = 0
 [browscap]
 [Session]
-session.save_handler = files
+session.save_handler = memcached
+session.save_path = "192.168.2.12:11211"
 session.use_strict_mode = 0
 session.use_cookies = 1
 session.use_only_cookies = 1
