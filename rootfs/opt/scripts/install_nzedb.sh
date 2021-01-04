@@ -14,7 +14,7 @@ echo "=== Cloning nZEDb from https://github.com/nZEDb/nZEDb.git to ${_PATH_INSTA
 echo ""
 git clone https://github.com/nZEDb/nZEDb.git ${_PATH_INSTALL_ROOT} || exit 5;
 #composer create-project --no-dev --keep-vcs --prefer-source nzedb/nzedb ${_PATH_INSTALL_ROOT} || exit 5;
-cd /opt/html
+cd /opt/http
 wget https://getcomposer.org/download/1.10.19/composer.phar
 php composer.phar install
 chmod -R 755 /opt/html/app/libraries && chmod -R 755 /opt/html/libraries && chmod -R 777 /opt/html/resources && chmod -R 777 /opt/html/www
