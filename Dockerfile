@@ -19,6 +19,9 @@ RUN apt-get update \
       nginx \
       gettext-base \
       git \
+      gcc \
+      make \
+      redis-server \
       php-pear \
       php7.2-fpm \
       php7.2-mysql \
@@ -53,7 +56,10 @@ RUN apt-get update \
       time \
       screen \
       software-properties-common \
-      nano
+      nano \
+      iproute2
+RUN cd /tmp && wget http://sphinxsearch.com/files/sphinxsearch_2.2.10-release-0ubuntu12~precise_amd64.deb && dpkg -i sphinxsearch_2.2.10-release-0ubuntu12~precise_amd64.deb
+RUN cd /tmp && git clone https://github.com/nicolasff/phpredis.git && cd /tmp/phpredis && ./configure && make && make install && echo "extension=redis.so" > /etc/php/7.2/mods-available/redis.ini
 RUN cd /tmp && wget http://launchpadlibrarian.net/339874908/libav-tools_3.3.4-2_all.deb && dpkg -i libav-tools_3.3.4-2_all.deb
 RUN apt-get update
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
