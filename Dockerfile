@@ -68,6 +68,7 @@ RUN apt-get update \
 RUN cd /tmp && git clone https://github.com/igbinary/igbinary.git && cd igbinary && phpize && ./configure CFLAGS="-O2 -g" --enable-igbinary && make && make test && make install && echo "extension=igbinary.so" > /etc/php/7.2/mods-available/igbinary.ini
 RUN cd /tmp && git clone https://github.com/nicolasff/phpredis.git && cd /tmp/phpredis && phpize && ./configure --enable-redis-igbinary && make && make install && echo "extension=redis.so" > /etc/php/7.2/mods-available/redis.ini
 RUN cd /tmp && wget http://launchpadlibrarian.net/339874908/libav-tools_3.3.4-2_all.deb && dpkg -i libav-tools_3.3.4-2_all.deb
+RUN phpenmod redis && phpenmod igbinary
 RUN apt-get update
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
 RUN tar xfz /tmp/s6.tar.gz -C /
