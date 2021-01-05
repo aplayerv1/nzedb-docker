@@ -14,6 +14,8 @@ echo "--- Done."
 echo ""
 echo "=== Running setup ..."
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer;
+echo "=== Roll Back To 1.10.19 ==="
+composer self-update 1.10.19
 echo "--- Done."
 echo ""
 echo "=== Deleting setup files ..."
