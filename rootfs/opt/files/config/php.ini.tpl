@@ -1,4 +1,4 @@
-#####/etc/php/7.2/fpm/php.ini#####
+#####/etc/php/7.0/fpm/php.ini#####
 [PHP]
 engine = On
 short_open_tag = Off
@@ -103,8 +103,7 @@ pgsql.log_notice = 0
 bcmath.scale = 0
 [browscap]
 [Session]
-session.save_handler = redis
-session.save_path = "tcp://localhost:6379"
+session.save_handler = files
 session.use_strict_mode = 0
 session.use_cookies = 1
 session.use_only_cookies = 1
@@ -114,7 +113,7 @@ session.cookie_lifetime = 0
 session.cookie_path = /
 session.cookie_domain =
 session.cookie_httponly =
-session.serialize_handler = igbinary
+session.serialize_handler = php
 session.gc_probability = 0
 session.gc_divisor = 1000
 session.gc_maxlifetime = 1440
@@ -146,4 +145,3 @@ ldap.max_links = -1
 [opcache]
 [curl]
 [openssl]
-
