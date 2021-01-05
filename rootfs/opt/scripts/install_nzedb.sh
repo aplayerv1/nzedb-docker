@@ -30,7 +30,6 @@ echo ""
 echo "=== Installing additional modules required."
 echo ""
 composer --no-ansi require league/oauth2-google || exit 7;
-composer suggests | xargs -I '{}' composer require '{}'
 echo ""
 echo "--- Done."
 exit 0;
