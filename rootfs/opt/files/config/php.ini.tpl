@@ -141,6 +141,7 @@ soap.wsdl_cache_limit = 5
 [sysvshm]
 [ldap]
 ldap.max_links = -1
+[mcrypt]
 [dba]
 [opcache]
 [curl]
