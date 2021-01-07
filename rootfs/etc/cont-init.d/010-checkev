@@ -67,7 +67,7 @@ echo -n "${_PHP_MAX_EXECUTION_TIME}" > "${_CONTAINER_EV}/_PHP_MAX_EXECUTION_TIME
 echo "";
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-memcached}";
-if [[ ${_PHP_SESSION_HANDLER} =~ ^(.*)/$ ]]; then
+if [[ ${_PHP_SESSION_HANDLER} =! "files" ]]; then
     export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}"
 else
     export _PHP_SESSION_HANDLER="files";
@@ -76,7 +76,7 @@ echo -n "PHP_SESSION_HANDLER set to ${_PHP_SESSION_HANDLER}";
 echo "";
 
 export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-127.0.0.1}"
-if [[ "${_PHP_SESSION_PATH}" =~ ^[0-9]+$ ]]; then
+if [[ "${_PHP_SESSION_PATH}" =! "" ]]; then
         export _PHP_SESSION_PATH="${BASH_REMATCH[1]}"
 else
     export _PHP_SESSION_PATH="localhost";
