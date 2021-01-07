@@ -70,8 +70,9 @@ echo "";
 
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-files}";
-
-echo "";
+if [[ "${_PHP_SESSION_HANDLER}" =~ ^(.*)/$ ]]; then
+    export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
+fi
 
 
 
@@ -84,7 +85,7 @@ if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
     else
       export _PHP_SESSION_PATH="localhost";
     fi
-    echo -n "WEB_ROOT set to: ${_PHP_SESSION_PATH:-}";
+    echo -n "SESSION PATH set to: ${_PHP_SESSION_PATH:-}";
     echo -n "${_PHP_SESSION_PATH}" > "${_CONTAINER_EV}/_PHP_SESSION_PATH";
     echo "";
 
