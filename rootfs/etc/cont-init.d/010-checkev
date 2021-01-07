@@ -69,14 +69,8 @@ echo "";
 
 
 
-export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-}";
-if [[ "${_PHP_SESSION_HANDLER}" == "memcached" ]]; then
-    export _PHP_SESSION_HANDLER="memcached";
-    echo -n "PHP_SESSION_HANDLER set to ${_PHP_SESSION_HANDLER}";
-else
-    export _PHP_SESSION_HANDLER="files";
-    echo -n "PHP_SESSION_HANDLER set to ${_PHP_SESSION_HANDLER}";
-fi
+export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-files}";
+
 echo "";
 
 
@@ -117,11 +111,11 @@ else
    echo "Disabled session.path";
 fi
 
-export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-}";
+export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-php}";
 if [[ "${_PHP_SERIALIZE_HANDLER}" =~ ^(.*)/$ ]]; then
     echo "PHP_SERIALIZE_HANDLER set to: ${_PHP_SERIALIZE_HANDLER}";
 else
-    echo "ERROR: PHP_TIMEZONE ${_PHP_SERIALIZE_HANDLER} does not exist."
+    echo "ERROR: PHP SERIALIZED HANDLER ${_PHP_SERIALIZE_HANDLER} does not exist."
     echo "ERROR: SETTING DEFAULT: PHP";
     export _PHP_SERIALIZE_HANDLER="PHP";
 fi
