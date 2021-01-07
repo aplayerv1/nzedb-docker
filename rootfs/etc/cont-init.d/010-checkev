@@ -66,7 +66,7 @@ fi
 echo -n "${_PHP_MAX_EXECUTION_TIME}" > "${_CONTAINER_EV}/_PHP_MAX_EXECUTION_TIME";
 echo "";
 
-export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER}";
+export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-memcached}";
 if [[ ${_PHP_SESSION_HANDLER} =~ ^(.*)/$ ]]; then
     export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}"
 else
@@ -75,13 +75,8 @@ fi
 echo -n "PHP_SESSION_HANDLER set to ${_PHP_SESSION_HANDLER}";
 echo "";
 
-export _PHP_SESSION_PATH="${PHP_SESSION_PATH:-_}"
-echo "PHP_SESSION_PATH: ${_PHP_SESSION_PATH}"
-echo -n "${_PHP_SESSION_PATH}" > "${_CONTAINER_EV}/_PHP_SESSION_PATH";
-echo ""
-
-export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-}"
-if [[ "${_PHP_SESSION_PATH}" =~ ^(.*)/$ ]]; then
+export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-127.0.0.1}"
+if [[ "${_PHP_SESSION_PATH}" =~ ^[0-9]+$ ]]; then
         export _PHP_SESSION_PATH="${BASH_REMATCH[1]}"
 else
     export _PHP_SESSION_PATH="localhost";
@@ -113,7 +108,7 @@ echo ""
 
 
 
-export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-}";
+export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-igbinary}";
 if [[ ${_PHP_SERIALIZE_HANDLER} =~ ^(.*)/$ ]]; then
     echo "PHP_SERIALIZE_HANDLER set to: ${_PHP_SERIALIZE_HANDLER}";
 else
