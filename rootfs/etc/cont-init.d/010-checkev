@@ -70,7 +70,6 @@ echo "";
 
 
 
-export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-}";
 if [[ "${_PHP_SESSION_HANDLER}" == "memcached" ]]; then
     echo -n "PHP_SESSION_HANDLER set to ${_PHP_SESSION_HANDLER}";
 else
