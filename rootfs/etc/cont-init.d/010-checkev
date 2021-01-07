@@ -119,11 +119,10 @@ else
 fi
 
 export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-php}";
-if [[ "${_PHP_SERIALIZE_HANDLER}" =~ ^(.*)/$ ]]; then
+if [[ "${_PHP_SERIALIZE_HANDLER}" == "igbinary" ]]; then
     export _PHP_SERIALIZE_HANDLER="${BASH_REMATCH[1]}";
     echo "PHP_SERIALIZE_HANDLER set to: ${_PHP_SERIALIZE_HANDLER}";
 else
-    echo "ERROR: PHP SERIALIZED HANDLER ${_PHP_SERIALIZE_HANDLER} does not exist."
     echo "SETTING DEFAULT: PHP";
     export _PHP_SERIALIZE_HANDLER="PHP";
 fi
