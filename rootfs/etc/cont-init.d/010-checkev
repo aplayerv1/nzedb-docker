@@ -37,7 +37,7 @@ if [[ "${_PATH_INSTALL_ROOT}" =~ ^(.*)/$ ]]; then
 fi
 echo "PATH_INSTALL_ROOT set to ${_PATH_INSTALL_ROOT}"
 echo -n "${_PATH_INSTALL_ROOT}" > "${_CONTAINER_EV}/_PATH_INSTALL_ROOT";
-echo ""
+echo "";
 
 export _PATH_WEB_RESOURCES="${PATH_WEB_RESOURCES:-/data/resources}"
 if [[ "${_PATH_WEB_RESOURCES}" =~ ^(.*)/$ ]]; then
@@ -45,68 +45,78 @@ if [[ "${_PATH_WEB_RESOURCES}" =~ ^(.*)/$ ]]; then
 fi
 echo "PATH_WEB_RESOURCES set to ${_PATH_WEB_RESOURCES}"
 echo -n "${_PATH_WEB_RESOURCES}" > "${_CONTAINER_EV}/_PATH_WEB_RESOURCES";
-echo ""
+echo "";
 
 export _PATH_WEB_SERVER_ROOT="${PATH_WEB_SERVER_ROOT:-${_PATH_INSTALL_ROOT}/www}"
 if [[ "${_PATH_WEB_SERVER_ROOT}" =~ ^(.*)/$ ]]; then
-    export _PATH_WEB_SERVER_ROOT="${BASH_REMATCH[1]}"
+    export _PATH_WEB_SERVER_ROOT="${BASH_REMATCH[1]}";
 fi
-echo "PATH_WEB_SERVER_ROOT set to ${_PATH_WEB_SERVER_ROOT}"
+echo "PATH_WEB_SERVER_ROOT set to ${_PATH_WEB_SERVER_ROOT}";
 echo -n "${_PATH_WEB_SERVER_ROOT}" > "${_CONTAINER_EV}/_PATH_WEB_SERVER_ROOT";
-echo ""
+echo "";
 
 export _PHP_MAX_EXECUTION_TIME="${PHP_MAX_EXECUTION_TIME:-120}";
 if [[ ${_PHP_MAX_EXECUTION_TIME} =~ ^[0-9]+$ ]]; then
-    echo "PHP_MAX_EXECUTION_TIME set to: ${_PHP_MAX_EXECUTION_TIME}"
+    echo "PHP_MAX_EXECUTION_TIME set to: ${_PHP_MAX_EXECUTION_TIME}";
 else
-    echo "ERROR: PHP_MAX_EXECUTION_TIME MUST CONTAIN NUMERIC CHARACTERS ONLY: ${_PHP_MAX_EXECUTION_TIME}"
+    echo "ERROR: PHP_MAX_EXECUTION_TIME MUST CONTAIN NUMERIC CHARACTERS ONLY: ${_PHP_MAX_EXECUTION_TIME}";
     echo "ERROR: SETTING DEFAULT OF 300";
     export _PHP_MAX_EXECUTION_TIME=300;
 fi
 echo -n "${_PHP_MAX_EXECUTION_TIME}" > "${_CONTAINER_EV}/_PHP_MAX_EXECUTION_TIME";
 echo "";
 
+
+
+
+
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-memcached}";
-if [[ ${_PHP_SESSION_HANDLER} =! "files" ]]; then
-    export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}"
+if [[ ${_PHP_SESSION_HANDLER} =~ ^(.*)/$ ]]; then
+    export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
 else
     export _PHP_SESSION_HANDLER="files";
 fi
 echo -n "PHP_SESSION_HANDLER set to ${_PHP_SESSION_HANDLER}";
 echo "";
 
-export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-127.0.0.1}"
-if [[ "${_PHP_SESSION_PATH}" =! "" ]]; then
-        export _PHP_SESSION_PATH="${BASH_REMATCH[1]}"
-else
-    export _PHP_SESSION_PATH="localhost";
-fi
-echo -n "WEB_ROOT set to: ${_PHP_SESSION_PATH:-}"
-echo -n "${_PHP_SESSION_PATH}" > "${_CONTAINER_EV}/_PHP_SESSION_PATH";
-echo ""
 
-export _PHP_SESSION_PORT="${PHP_SESSION_PORT:-11211}"
-if [[ $_PHP_SESSION_PORT =~ ^[0-9]+$ ]]; then
-    if [[ $_PHP_SESSION_PORT -gt 0 && $_PHP_SESSION_PORT -lt 65536 ]]; then
 
-        echo "PHP_SESSION_PORT: ${_PHP_SESSION_PORT}"
+
+if [[ ${_PHP_SESSION_HANDLER} == "memcached"]]; then
+
+    export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-127.0.0.1}"
+    if [[ "${_PHP_SESSION_PATH}" =~ ^[0-9]+$ ]]; then
+        export _PHP_SESSION_PATH="${BASH_REMATCH[1]}";
     else
-        echo "ERROR: PHP SESSIONS PORT OUT OF RANGE: ${_PHP_SESSION_PORT}";
-        echo "ERROR: SETTING DEFAULT PORT 11211";
-        export _PHP_SESSION_PORT=11211;
+      export _PHP_SESSION_PATH="localhost";
     fi
-else 
-    echo "ERROR: PHP SESSIONS PORT MUST CONTAIN NUMERIC CHARACTERS ONLY: ${_PHP_SESSION_PORT}"
-    echo "SETTING DEFAULT PORT 11211"
-    export _PHP_SESSION_PORT=11211;
+    echo -n "WEB_ROOT set to: ${_PHP_SESSION_PATH:-}";
+    echo -n "${_PHP_SESSION_PATH}" > "${_CONTAINER_EV}/_PHP_SESSION_PATH";
+    echo "";
+
+    export _PHP_SESSION_PORT="${PHP_SESSION_PORT:-11211}";
+    if [[ $_PHP_SESSION_PORT =~ ^[0-9]+$ ]]; then
+        if [[ $_PHP_SESSION_PORT -gt 0 && $_PHP_SESSION_PORT -lt 65536 ]]; then
+
+            echo "PHP_SESSION_PORT: ${_PHP_SESSION_PORT}";
+        else
+             echo "ERROR: PHP SESSIONS PORT OUT OF RANGE: ${_PHP_SESSION_PORT}";
+             echo "ERROR: SETTING DEFAULT PORT 11211";
+             export _PHP_SESSION_PORT=11211;
+        fi
+        else 
+             echo "ERROR: PHP SESSIONS PORT MUST CONTAIN NUMERIC CHARACTERS ONLY: ${_PHP_SESSION_PORT}";
+              echo "SETTING DEFAULT PORT 11211";
+             export _PHP_SESSION_PORT=11211;
+    fi
+    echo -n "${_PHP_SESSION_PORT}" > "${_CONTAINER_EV}/_PHP_SESSION_PORT";
+    echo "";
+
+else
+   export _PHP_ENABLER = "${PHP_ENABLER:-}";
+   export _PHP_ENABLER = ";";
+   echo "Disabled session.path";
 fi
-echo -n "${_PHP_SESSION_PORT}" > "${_CONTAINER_EV}/_PHP_SESSION_PORT";
-echo ""
-
-
-
-
-
 
 export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-igbinary}";
 if [[ ${_PHP_SERIALIZE_HANDLER} =~ ^(.*)/$ ]]; then
