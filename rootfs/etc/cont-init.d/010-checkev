@@ -73,8 +73,7 @@ export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-files}";
 if [[ "${_PHP_SESSION_HANDLER}" == "memchached" ]]; then
     export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
 else 
-    export _PHP_SERIALIZE_HANDLER="files"
-    export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
+    export _PHP_SESSION_HANDLER="files"
 fi
 echo -n "${_PHP_SESSION_HANDLER}" > "${_CONTAINER_EV}/_PHP_SESSION_HANDLER";
 
