@@ -72,7 +72,7 @@ echo "";
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-memcached}";
 if [[ "${_PHP_SESSION_HANDLER}" =~ ^(.*)/$ ]]; then
-    export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
+    export _PHP_SESSION_HANDLER="memcached";
 else
     export _PHP_SESSION_HANDLER="files";
 fi
@@ -84,9 +84,9 @@ echo "";
 
 if [[ "${_PHP_SESSION_HANDLER}" == "memcached"]]; then
 
-    export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-127.0.0.1}"
+    export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-127.0.0.1}";
     if [[ ${_PHP_SESSION_PATH} =~ ^[0-9]+$ ]]; then
-        export _PHP_SESSION_PATH="${BASH_REMATCH[1]}";
+         echo "PHP_SESSION_PATH set to: ${_PHP_SESSION_PATH}";
     else
       export _PHP_SESSION_PATH="localhost";
     fi
