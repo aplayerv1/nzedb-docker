@@ -109,7 +109,8 @@ if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
     echo "";
 
 else
-   export _PHP_ENABLER=";";
+   export _PHP_ENABLER="${PHP_ENABLER:-;}";
+   echo "${_PHP_ENABLER}";
    echo -n "${_PHP_ENABLER}" > "${_CONTAINER_EV}/_PHP_ENABLER";
    echo "Disabled session.path";
 fi
