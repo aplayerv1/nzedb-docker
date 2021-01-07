@@ -69,8 +69,9 @@ echo "";
 
 
 
-
+export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-}";
 if [[ "${_PHP_SESSION_HANDLER}" == "memcached" ]]; then
+    export _PHP_SESSION_HANDLER="memcached";
     echo -n "PHP_SESSION_HANDLER set to ${_PHP_SESSION_HANDLER}";
 else
     export _PHP_SESSION_HANDLER="files";
@@ -84,7 +85,7 @@ echo "";
 if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
 
     export _PHP_SESSION_PATH="${PHP_SESSION_PATH:-127.0.0.1}";
-    if [[ ${_PHP_SESSION_PATH} =~ ^[0-9]+$ ]]; then
+    if [[ ${_PHP_SESSION_PATH} != "localhost" ]]; then
          echo "PHP_SESSION_PATH set to: ${_PHP_SESSION_PATH}";
     else
       export _PHP_SESSION_PATH="localhost";
@@ -112,7 +113,6 @@ if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
     echo "";
 
 else
-   export _PHP_ENABLER="${PHP_ENABLER:-}";
    export _PHP_ENABLER=";";
    echo "Disabled session.path";
 fi
