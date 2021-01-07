@@ -68,11 +68,11 @@ echo "";
 
 
 
-
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-files}";
-if [[ "${_PHP_SESSION_HANDLER}" =~ ^(.*)/$  ]]; then
+echo "${_PHP_SESSION_HANDLER}"
+if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
+    export _PHP_SESSION_HANDLER="memcache";
     echo "${_PHP_SESSION_HANDLER} is set.";
-    export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
 else 
     echo "Setting to Default files.";
     export _PHP_SESSION_HANDLER="files";
