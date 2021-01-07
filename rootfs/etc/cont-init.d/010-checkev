@@ -69,7 +69,6 @@ echo "";
 
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-}";
-echo "${_PHP_SESSION_HANDLER}";
 if [[ "${_PHP_SESSION_HANDLER}" == "memcached" ]]; then
     export _PHP_SESSION_HANDLER="memcached";
     echo "${_PHP_SESSION_HANDLER} is set.";
@@ -91,7 +90,7 @@ if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
       export _PHP_SESSION_PATH="localhost";
     fi
     echo -n "SESSION PATH set to: ${_PHP_SESSION_PATH:-}";
-    echo -n "${_PHP_SESSION_PATH}" > "${_CONTAINER_EV}/_PHP_SESSION_PATH";
+    
     echo "";
 
     export _PHP_SESSION_PORT="${PHP_SESSION_PORT:-11211}";
@@ -109,16 +108,18 @@ if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
         echo "SETTING DEFAULT PORT 11211";
         export _PHP_SESSION_PORT=11211;
     fi
-    echo -n "${_PHP_SESSION_PORT}" > "${_CONTAINER_EV}/_PHP_SESSION_PORT";
-    echo "";
 
-else
-   export _PHP_ENABLER="${PHP_ENABLER:-}";
-   echo "${_PHP_ENABLER} this is 1";
-   export _PHP_ENABLER=";";
-   echo "${_PHP_ENABLER} this is 2";
-   echo -n "${_PHP_ENABLER}" > "${_CONTAINER_EV}/_PHP_ENABLER";
-   echo "Disabled session.path";
+    if [[ ${_PHP_SESSION_PATH} =~ ^(.*)/$ && ${_PHP_SESSION_PORT} =~ ^[0-9] ]]; then
+        export _PHP_COMBINE="${PHP_COMBINE:-}";
+        export _PHP_COMBINE="${PHP_SESSION_PATH}:${PHP_SESSION_PORT}";
+        echo "${_PHP_COMBINE}";
+        echo -n "${_PHP_COMBINE}" > "${_CONTAINER_EV}/_PHP_COMBINE";
+    fi
+else 
+        export _PHP_COMBINE="${PHP_COMBINE:-}";
+        export _PHP_COMBINE="/tmp";
+        echo "${_PHP_COMBINE} is set.";
+        echo -n "${_PHP_COMBINE}" > "${_CONTAINER_EV}/_PHP_COMBINE";
 fi
 
 export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-php}";

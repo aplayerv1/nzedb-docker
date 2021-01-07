@@ -102,7 +102,7 @@ bcmath.scale = 0
 [browscap]
 [Session]
 session.save_handler = [+ $PHP_SESSION_HANDLER +]
-[+ $PHP_ENABLER +] session.save_path = "[+ $PHP_SESSION_PATH +]:[+ $PHP_SESSION_PORT +]"
+session.save_path = "[+ $PHP_COMBINE+]"
 session.use_strict_mode = 0
 session.use_cookies = 1
 session.use_only_cookies = 1
