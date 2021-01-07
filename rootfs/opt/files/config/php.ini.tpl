@@ -7,11 +7,11 @@ output_buffering = 4096
 zlib.output_compression = Off
 implicit_flush = Off
 unserialize_callback_func =
-serialize_precision = 17
-disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,
+serialize_precision = -1
+disable_functions =
 disable_classes =
 zend.enable_gc = On
-expose_php = Off
+expose_php = On
 max_execution_time = [+ $PHP_MAX_EXECUTION_TIME +]
 max_input_time = 60
 memory_limit = [+ $PHP_MEMORY_LIMIT +]
@@ -23,7 +23,6 @@ log_errors_max_len = 1024
 ignore_repeated_errors = Off
 ignore_repeated_source = Off
 report_memleaks = On
-track_errors = Off
 html_errors = On
 variables_order = "GPCS"
 request_order = "GP"
@@ -49,6 +48,7 @@ cli_server.color = On
 date.timezone = [+ $PHP_TIMEZONE +]
 [filter]
 [iconv]
+[imap]
 [intl]
 [sqlite3]
 [Pcre]
@@ -60,9 +60,7 @@ pdo_mysql.default_socket=
 [mail function]
 SMTP = localhost
 smtp_port = 25
-mail.add_x_header = On
-[SQL]
-sql.safe_mode = Off
+mail.add_x_header = Off
 [ODBC]
 odbc.allow_persistent = On
 odbc.check_persistent = On
@@ -103,7 +101,8 @@ pgsql.log_notice = 0
 bcmath.scale = 0
 [browscap]
 [Session]
-session.save_handler = files
+session.save_handler = [+ $PHP_SESSION_HANDLER +]
+session.save_path = "[+ $PHP_SESSION_PATH +]:[+ $PHP_SESSION_PORT +]"
 session.use_strict_mode = 0
 session.use_cookies = 1
 session.use_only_cookies = 1
@@ -113,7 +112,7 @@ session.cookie_lifetime = 0
 session.cookie_path = /
 session.cookie_domain =
 session.cookie_httponly =
-session.serialize_handler = php
+session.serialize_handler = [+ $PHP_SERIALIZE_HANDLER +]
 session.gc_probability = 0
 session.gc_divisor = 1000
 session.gc_maxlifetime = 1440
@@ -121,9 +120,9 @@ session.referer_check =
 session.cache_limiter = nocache
 session.cache_expire = 180
 session.use_trans_sid = 0
-session.hash_function = 0
-session.hash_bits_per_character = 5
-url_rewriter.tags = "a=href,area=href,frame=src,input=src,form=fakeentry"
+session.sid_length = 26
+session.trans_sid_tags = "a=href,area=href,frame=src,form="
+session.sid_bits_per_character = 5
 [Assertion]
 zend.assertions = -1
 [COM]
@@ -140,7 +139,6 @@ soap.wsdl_cache_limit = 5
 [sysvshm]
 [ldap]
 ldap.max_links = -1
-[mcrypt]
 [dba]
 [opcache]
 [curl]

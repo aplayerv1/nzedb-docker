@@ -66,6 +66,78 @@ fi
 echo -n "${_PHP_MAX_EXECUTION_TIME}" > "${_CONTAINER_EV}/_PHP_MAX_EXECUTION_TIME";
 echo "";
 
+export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER}";
+if [[ ${_PHP_SESSION_HANDLER} =~ ^(.*)/$ ]]; then
+    export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}"
+else
+    export _PHP_SESSION_HANDLER="files";
+fi
+echo -n "PHP_SESSION_HANDLER set to ${_PHP_SESSION_HANDLER}";
+echo "";
+
+export _PHP_SESSION_PATH="${PHP_SESSION_PATH:-_}"
+echo "PHP_SESSION_PATH: ${_PHP_SESSION_PATH}"
+echo -n "${_PHP_SESSION_PATH}" > "${_CONTAINER_EV}/_PHP_SESSION_PATH";
+echo ""
+
+export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-}"
+if [[ "${_PHP_SESSION_PATH}" =~ ^(.*)/$ ]]; then
+        export _PHP_SESSION_PATH="${BASH_REMATCH[1]}"
+else
+    export _PHP_SESSION_PATH="localhost";
+fi
+echo -n "WEB_ROOT set to: ${_PHP_SESSION_PATH:-}"
+echo -n "${_PHP_SESSION_PATH}" > "${_CONTAINER_EV}/_PHP_SESSION_PATH";
+echo ""
+
+export _PHP_SESSION_PORT="${PHP_SESSION_PORT:-11211}"
+if [[ $_PHP_SESSION_PORT =~ ^[0-9]+$ ]]; then
+    if [[ $_PHP_SESSION_PORT -gt 0 && $_PHP_SESSION_PORT -lt 65536 ]]; then
+
+        echo "PHP_SESSION_PORT: ${_PHP_SESSION_PORT}"
+    else
+        echo "ERROR: PHP SESSIONS PORT OUT OF RANGE: ${_PHP_SESSION_PORT}";
+        echo "ERROR: SETTING DEFAULT PORT 11211";
+        export _PHP_SESSION_PORT=11211;
+    fi
+else 
+    echo "ERROR: PHP SESSIONS PORT MUST CONTAIN NUMERIC CHARACTERS ONLY: ${_PHP_SESSION_PORT}"
+    echo "SETTING DEFAULT PORT 11211"
+    export _PHP_SESSION_PORT=11211;
+fi
+echo -n "${_PHP_SESSION_PORT}" > "${_CONTAINER_EV}/_PHP_SESSION_PORT";
+echo ""
+
+
+
+
+
+
+export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-}";
+if [[ ${_PHP_SERIALIZE_HANDLER} =~ ^(.*)/$ ]]; then
+    echo "PHP_SERIALIZE_HANDLER set to: ${_PHP_SERIALIZE_HANDLER}";
+else
+    echo "ERROR: PHP_TIMEZONE ${_PHP_SERIALIZE_HANDLER} does not exist."
+    echo "ERROR: SETTING DEFAULT: PHP";
+    export _PHP_SERIALIZE_HANDLER="PHP";
+fi
+echo -n "${_PHP_SERIALIZE_HANDLER}" > "${_CONTAINER_EV}/_PHP_SERIALIZE_HANDLER";
+echo "";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export _PHP_MEMORY_LIMIT="${PHP_MEMORY_LIMIT:-1G}"
 if [[ ${_PHP_MEMORY_LIMIT} =~ ^[0-9]+(k|m|g|K|M|G)$ ]]; then
     echo "PHP_MEMORY_LIMIT set to: ${_PHP_MEMORY_LIMIT}"
