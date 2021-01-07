@@ -71,6 +71,7 @@ echo "";
 
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-memcached}";
+echo "${_PHP_SESSION_HANDLER}";
 if [[ "${_PHP_SESSION_HANDLER}" =~ ^(.*)/$ ]]; then
     export _PHP_SESSION_HANDLER="memcached";
 else
@@ -82,7 +83,7 @@ echo "";
 
 
 
-if [[ "${_PHP_SESSION_HANDLER}" =! "files" ]]; then
+if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
 
     export _PHP_SESSION_PATH="${PHP_SESSION_PATH:-127.0.0.1}";
     if [[ ${_PHP_SESSION_PATH} =~ ^[0-9]+$ ]]; then
@@ -104,10 +105,10 @@ if [[ "${_PHP_SESSION_HANDLER}" =! "files" ]]; then
              echo "ERROR: SETTING DEFAULT PORT 11211";
              export _PHP_SESSION_PORT=11211;
         fi
-        else 
-             echo "ERROR: PHP SESSIONS PORT MUST CONTAIN NUMERIC CHARACTERS ONLY: ${_PHP_SESSION_PORT}";
-              echo "SETTING DEFAULT PORT 11211";
-             export _PHP_SESSION_PORT=11211;
+    else 
+        echo "ERROR: PHP SESSIONS PORT MUST CONTAIN NUMERIC CHARACTERS ONLY: ${_PHP_SESSION_PORT}";
+        echo "SETTING DEFAULT PORT 11211";
+        export _PHP_SESSION_PORT=11211;
     fi
     echo -n "${_PHP_SESSION_PORT}" > "${_CONTAINER_EV}/_PHP_SESSION_PORT";
     echo "";
