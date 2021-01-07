@@ -70,7 +70,10 @@ echo "";
 
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-files}";
-if [[ "${_PHP_SESSION_HANDLER}" =~ ^(.*)/$ ]]; then
+if [[ "${_PHP_SESSION_HANDLER}" == "memchached" ]]; then
+    export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
+else 
+    export _PHP_SERIALIZE_HANDLER="files"
     export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
 fi
 echo -n "${_PHP_SESSION_HANDLER}" > "${_CONTAINER_EV}/_PHP_SESSION_HANDLER";
@@ -114,9 +117,6 @@ else
    echo -n "${_PHP_ENABLER}" > "${_CONTAINER_EV}/_PHP_ENABLER";
    echo "Disabled session.path";
 fi
-echo -n "${_PHP_SESSION_PATH}" > "${_CONTAINER_EV}/_PHP_SESSION_PATH";
-
-
 
 export _PHP_SERIALIZE_HANDLER="${PHP_SERIALIZE_HANDLER:-php}";
 if [[ "${_PHP_SERIALIZE_HANDLER}" =~ ^(.*)/$ ]]; then
@@ -124,7 +124,7 @@ if [[ "${_PHP_SERIALIZE_HANDLER}" =~ ^(.*)/$ ]]; then
     echo "PHP_SERIALIZE_HANDLER set to: ${_PHP_SERIALIZE_HANDLER}";
 else
     echo "ERROR: PHP SERIALIZED HANDLER ${_PHP_SERIALIZE_HANDLER} does not exist."
-    echo "ERROR: SETTING DEFAULT: PHP";
+    echo "SETTING DEFAULT: PHP";
     export _PHP_SERIALIZE_HANDLER="PHP";
 fi
 echo -n "${_PHP_SERIALIZE_HANDLER}" > "${_CONTAINER_EV}/_PHP_SERIALIZE_HANDLER";
