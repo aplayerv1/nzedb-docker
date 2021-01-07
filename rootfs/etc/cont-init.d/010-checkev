@@ -73,6 +73,7 @@ export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-files}";
 if [[ "${_PHP_SESSION_HANDLER}" =~ ^(.*)/$ ]]; then
     export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
 fi
+echo -n "${_PHP_SESSION_HANDLER}" > "${_CONTAINER_EV}/_PHP_SESSION_HANDLER";
 
 
 
