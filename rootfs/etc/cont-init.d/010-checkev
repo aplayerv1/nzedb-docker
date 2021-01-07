@@ -82,9 +82,9 @@ echo "";
 
 
 
-if [[ "${_PHP_SESSION_HANDLER}" == "memcached"]]; then
+if [[ "${_PHP_SESSION_HANDLER}" =! "files" ]]; then
 
-    export _PHP_SESSION_PATH="${_PHP_SESSION_PATH:-127.0.0.1}";
+    export _PHP_SESSION_PATH="${PHP_SESSION_PATH:-127.0.0.1}";
     if [[ ${_PHP_SESSION_PATH} =~ ^[0-9]+$ ]]; then
          echo "PHP_SESSION_PATH set to: ${_PHP_SESSION_PATH}";
     else
