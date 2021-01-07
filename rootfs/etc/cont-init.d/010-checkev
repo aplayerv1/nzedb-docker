@@ -109,8 +109,8 @@ if [[ "${_PHP_SESSION_HANDLER}" != "files" ]]; then
         export _PHP_SESSION_PORT=11211;
     fi
 
+    export _PHP_COMBINE="${_PHP_COMBINE:-}";
     if [[ ${_PHP_SESSION_PATH} != "localhost"  && ${_PHP_SESSION_PORT} =~ ^[0-9] ]]; then
-        export _PHP_COMBINE="${_PHP_COMBINE:-}";
         export _PHP_COMBINE="${_PHP_SESSION_PATH}:${_PHP_SESSION_PORT}";
         echo "${_PHP_COMBINE}";
         echo -n "${_PHP_COMBINE}" > "${_CONTAINER_EV}/_PHP_COMBINE";
