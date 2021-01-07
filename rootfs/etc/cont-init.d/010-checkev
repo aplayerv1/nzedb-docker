@@ -71,9 +71,11 @@ echo "";
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-files}";
 if [[ "${_PHP_SESSION_HANDLER}" == "memchached" ]]; then
+    echo "${_PHP_SESSION_HANDLER} is set.";
     export _PHP_SESSION_HANDLER="${BASH_REMATCH[1]}";
 else 
-    export _PHP_SESSION_HANDLER="files"
+    echo "Setting to Default files.";
+    export _PHP_SESSION_HANDLER="files";
 fi
 echo -n "${_PHP_SESSION_HANDLER}" > "${_CONTAINER_EV}/_PHP_SESSION_HANDLER";
 
