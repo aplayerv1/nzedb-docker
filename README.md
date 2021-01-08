@@ -1,177 +1,76 @@
-nZEDb container based on nZEDb from https://github.com/nZEDb/nZEDb
-This image is able to run under a different web root than "/". E.g. https://your.server/nzedb/
+version: '3'
 
-**WARNING**: Not all themes are able to handle a subdomain. So far the best theme is "Omicron". Other themes are poorly implemented and the links don't work when used with https. That's not nZEDb's or Smarty's fault. The problem is in how the themes are written. 
+networks:
+  localnet:
+    driver: bridge
+    ipam:
+      config:
+         - subnet: 172.7.0.0/16
 
-The image is based on Ubuntu Yakkety. Alpine is not an option at the moment as of PHP dependency problems.
-
-Requirements:
-
-- Mysql Database (not included)
-- Docker :)
-
-To install and run the container use:
-
-docker create --name nzedb grimages/nzedb
-
-Available environment variables:
-
-* **PATH_CUSTOM_CONFIG** - Default: EMPTY
-A path to a directory inside the container that contains custom configuration files that should be copied over instead of using the defaults or a template. It should contain a subdirectory for every supported software that should be configured. So far the following subdirectories are supported:
-    * nzedb
-        * config.php - Will be copied to nzedb_root/configuration/config.php and nzedb_root/configuration/install.lock will be created.
-
-
-* **PATH_INSTALL_ROOT** - Default: "/opt/http"
- Where nZEDb should be installed. The Path actually is the top level path of everything nZEDb. It also becomes part of the **PATH_WEB_SERVER_ROOT** variable. 
-
-* **PATH_WEB_RESOURCES** - Default: "/data/resources".
-The path inside the container where resources like covers, nzbs and stuff should be stored. It's a good idea to put this **OUTSIDE** the container so that the information isn't lost on update. 
-
-* **PATH_WEB_SERVER_ROOT** - Default: "$PATH_INSTALL_ROOT/www"
-The web server's root DIRECTORY. Right now changes to this create unexpected results.
-
-* **TZ** - Timezone to be used. 
-Check /usr/share/zoneinfo/ for available timezones.
-
-* **PHP_MAX_EXECUTION_TIME** - Default: "120".
-Maximum time PHP scripts execute. Self explaining. If not, check [PHP configuration parameters](http://php.net/manual/en/info.configuration.php#ini.max-execution-time).
-
-* **PHP_MEMORY_LIMIT** - Default: "1G"
-Maximum memory a script can consum. Self explaining. If not, check [PHP configuration parameters](http://php.net/manual/en/ini.core.php#ini.memory-limit). Allowed characters after the integer are "k|K|m|M|g|G". 
-
-* **PHP_TIMEZONE** - Default: "$TZ"
-The timezone PHP should use. If not set uses the default timezone set via **TZ**. See the description of the **TZ** variable.
-
-* **REFRESH_POSTPROCESS_OPTIONS** - Default: "nfo mov tv ama"
-The postprocessing options handed to misc/update/nix/multiprocessing/postprocess.php. Check the help of postprocess.php for more information (run php postprocess.php without any arguments).
-
- At the time of writing, the allowed options are:
- * ama => Do amazon processing, this does not use multi-processing, because of amazon API restrictions.
- * add => Do additional (rar|zip) processing.
- * mov => Do movie processing.
- * nfo => Do NFO processing.
- * sha => Do sharing processing, this does not using multi-processing.
- * tv  => Do TV processing.
-
-
-* **RUN_WEB_SERVER** - Default: "1"
-Run the webserver?. If you don't want to run the webserver in this container and the updater only, then you can set this to "0" and offer a custom configuration for nZEDb. This will only run the updater and nothing else. Might come in handy to spread the load accross multiple systems.
-
-* **RUN_REFRESH** - Default: "0"
-Run the updater in the background? If set to "1" then the update script will run in the background. There is no timeout or anything. It constantly runs and updates the databse with new entries. You can set this to "0" in case you don't want to run the updater inside this container. The refresh only starts after the system has been configured. Either by custom config, see **PATH_CUSTOM_CONFIG** or through the web interface after installation.
-
-* **WEB_ROOT** - Default: "/"
-The web server's web root. The URI that the web server responds to. It is important that there is no trailing slash. Can be anything. E.g. "/nzedb" or "/superindexer" or "/some/path/to/the/indexer". Read the warning at the top of the page regarding the themes of nZEDb.
-
-* **WEB_SERVER_HTTP_PORT** - Default: 80
-The port to listen on for HTTP requests. Self explaining.
-
-* **WEB_SERVER_HTTPS_PORT** - Default: 443 (NOT IMPLEMENTED YET)
-**Not yet implemented.** The port to listen on for HTTPS requests. Will implement Let's Encrypt certificates with automatic update. Working on it...
-
-* **WEB_SERVER_NAME** - Default: "_"
-The domain name of the web server. E.g. "hub.docker.com". It is important to note that this name should be set as there are redirects in play which will lead to nowhere if not set correctly. If you don't have a name, set the ip address here.
-
-* **GIT_TOKEN** - Default: **EMPTY**
-**It is absoloutly mandatory. No token, no fun!.** A GitHUB access token. The token is necessary because during the first start all the parts of the image are pulled directly from github and installed in the image. If this token is not there, then the composer installation of nZEDb and everything else **FAILS**.
-
-**This is a basic setup that should be behind an nginx reverse proxy or something similar.**
-The setup is able to detect if https is used on the reverse proxy or not so it automagically uses the correct protocol.
-
-It also includes the yydecode binary that is available at https://www.ubuntuupdates.org/package/getdeb_apps/yakkety/apps/getdeb/yydecode which is pulled in during installation.  
-
-The image itself is stable. It's in use on two of my machines.
-
-After you started the image for the first time and try to access nZEDb via web you will always be redirected to the setup until nZEDb has been configured. To make this happen, nginx's config file contains an if statement. As [if is evil](https://www.nginx.com/resources/wiki/start/topics/depth/ifisevil/), the nginx configuration will be replaced by one without it and a disabled install directory after the container has been configured and restarted. 
-
-A full blown "installation" would look something like this:
-
-    docker create \
-        -e GIT_TOKEN="SOME_GIT_TOKEN_HERE" \
-        -e TZ="Europe/Berlin" \
-        -e PATH_INSTALL_ROOT="/opt/http" \
-        -e PATH_WEB_RESOURCES="/data/resources" \
-        -e PATH_WEB_SERVER_ROOT="/opt/http/www" \
-        -e PHP_MAX_EXECUTION_TIME="120" \
-        -e PHP_MEMORY_LIMIT="1G" \
-        -e PHP_TIMEZONE="Europe/Berlin" \
-        -e REFRESH_POSTPROCESS_OPTIONS="nfo mov tv ama" \
-        -e RUN_WEB_SERVER="1" \
-        -e RUN_REFRESH="0" \
-        -e WEB_ROOT="/" \
-        -e WEB_SERVER_HTTP_PORT="80" \
-        -e WEB_SERVER_HTTPS_PORT="443" \
-        -e WEB_SERVER_NAME="www.topusenetindexer.com" \
-        --hostname "$container_hostname" \
-        --ip 1.2.3.4 \
-        --name "$container_name" \
-        --net "$network_name" \
-        -v /etc/ssl/certs:/etc/ssl/certs:ro \
-        -v /nzedbresources:/data \
-        grimages/nzedb:latest
-
-OR docker-compose
-
-   nzedb:
+services:
+  nzedb:
     container_name: nzedb
     image: aplayerv1/nzedb:latest
     restart: always
     volumes:
-      - /etc/ssl/certs:/etc/ssl/certs:ro
-      - PATH TO RESOURCES:/data
-      - PATH TO MYSQLD SOCK:/var/run/mysqld:ro ( if on same machine)
-      - PATH TO CONFIG:/opt/config/nzedb/config
+      - ./config:/opt/config/nzedb
+      - ./nzedb:/opt/http
     environment:
-      - TZ= TIME ZONE (America\New_York EG)
-      - PATH_INSTALL_ROOT=/opt/http
-      - PATH_WEB_RESOURCES=/data/resources
-      - PATH_WEB_SERVER_ROOT=/opt/http/www
-      - PATH_CUSTOM_CONFIG=/opt/config
-      - PHP_MAX_EXECUTION_TIME=120
-      - PHP_MEMORY_LIMIT=1G
-      - PHP_TIMEZONE=  (PHP TIME ZONE)
-      - REFRESH_POSTPROCESS_OPTIONS=nfo mov tv ama
-      - RUN_WEB_SERVER=1
-      - RUN_REFRESH=1
-      - WEB_ROOT=/
-      - WEB_SERVER_HTTP_PORT=80
-      - WEB_SERVER_HTTPS_PORT=443
-      - WEB_SERVER_NAME= IP
-      - GIT_TOKEN= GIT TOKEN
+      - TZ=Europe/Lisbon
+      - PATH_INSTALL_ROOT=/opt/http                     #install directory
+      - PATH_WEB_RESOURCES=/opt/resources               #Web Resources where the nzb and other stuff goes to
+      - PATH_WEB_SERVER_ROOT=/opt/http/www              # root of the website which is install_root/www
+      - PATH_CUSTOM_CONFIG=/opt/config/                 # custom nzedb configs  (settings.php, etc...)
+      - PHP_MAX_EXECUTION_TIME=120                      # php maximum execution time recommended 120
+      - PHP_MEMORY_LIMIT=2G                             # php memory limit default is 128MB recommend 1G
+      - PHP_TIMEZONE=Europe/Lisbon                      # TZ find your time zone
+      #- REFRESH_POSTPROCESS_OPTIONS=nfo mov tv ama     #Default: "nfo mov tv ama" The postprocessing options handed to misc/update/nix/multiprocessing/postprocess.php  
+      - RUN_WEB_SERVER=1                                # Enable or disable web server 0 no 1 yes
+      - RUN_REFRESH=1                                   # RUN REFRESH Run the updater in the background? If set to "1" then the update script will run in the background. 
+      - WEB_ROOT=/                                      # Default: "/" The web server's web root. 
+      - WEB_SERVER_HTTP_PORT=80                         # Web server port default is 80
+      - WEB_SERVER_HTTPS_PORT=443                       # Web server ssl port default is 443
+      - WEB_SERVER_NAME=                                # Web server name I usually use an ip, default is "_", domain name of the web server. E.g. "hub.docker.com".
+      - GIT_TOKEN=                                      # MANDATORY if you don't have one then nothing will happen
+      - PHP_SESSION_HANDLER=                            # PHP session handler only memcached is supported atm. variables "memcached or files"
+      - PHP_SESSION_PATH=172.7.0.4                      # PHP session path for memcached an ip example is a docker memcache ip like bellow, default "/tmp"
+      - PHP_SESSION_PORT=                               # PHP session port memcached port default is 11211, NOTE: if files is set then ip and port don't work
+      - PHP_SERIALIZE_HANDLER=                          # PHP serialize default is set to php, the docker image comes with igbinary, set to igbinary to use that instead.
     ports:
       - 80:80
-      - 443:443
-    network_mode: host
+      - 4443:443
+    networks:
+      localnet:
+        ipv4_address: 172.7.0.3
 
-Usually it's fine to just setup the mandatory options:
+# OPTIONAL SPHINX PLEASE SET your custom settings.php to use sphinx
 
-
-    docker create \
-        -e GIT_TOKEN="SOME_GIT_TOKEN_HERE" \
-        -e TZ="Europe/Berlin" \
-        -e PATH_WEB_RESOURCES="/data/resources" \
-        -e WEB_SERVER_NAME="www.topusenetindexer.com" \
-        --hostname "$container_hostname" \
-        --ip 1.2.3.4 \
-        --name "$container_name" \
-        --net "$network_name" \
-        -v /etc/ssl/certs:/etc/ssl/certs:ro \
-        -v /nzedbresources:/data \
-        grimages/nzedb:latest
-
-
-If you want to "hide" the setup behind Nginx here's a config snippet that provides a reverse proxy configuration for the container: 
-
-    location /web_root/ {
-        proxy_buffering off;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-        proxy_redirect off;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://container_ip/web_root/;
-    }
-
-Next steps:
-
-- Add full HTTPS support
+  sphinx:
+    image: avatarnewyork/dockerenv-sphinx:2.2
+    container_name: sphinxsearch
+    restart: always
+    ports:
+      - "9306:9306" 
+      - "9312:9312"
+    volumes:
+      - ./logs:/var/log/sphinxsearch
+      - ./conf/sphinx.conf:/etc/sphinx/sphinx.conf:ro
+      - ./search:/var/run/sphinxsearch/
+      - ./data:/var/lib/sphinxsearch/data 
+    networks:
+      localnet:
+        ipv4_address: 172.7.0.2
+# OPTIONAL MEMCACHED if you want to use php memcached then use this or an equivelant memcache container set variables accordingly up above. NOTE if you want to use memcached in nzedb set variables in settings.php 
+  memcached:
+    container_name: memcached
+    image: bitnami/memcached:latest
+    environment:
+      - MEMCACHED_CACHE_SIZE=1024
+      - MEMCACHED_MAX_CONNECTIONS=2000
+      - MEMCACHED_THREADS=4
+    restart: always
+    ports:
+      - "11211:11211"
+    networks:
+      localnet:
+        ipv4_address: 172.7.0.4
