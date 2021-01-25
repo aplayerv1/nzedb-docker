@@ -17,6 +17,8 @@ git clone https://github.com/nZEDb/nZEDb.git ${_PATH_INSTALL_ROOT} || exit 5;
 echo ""
 chmod -R 755 /opt/html/app/libraries && chmod -R 755 /opt/html/libraries && chmod -R 777 /opt/html/resources && chmod -R 777 /opt/html/www
 rm /opt/html/composer.lock
+rm /opt/html/resources
+ln ${_PATH_WEB_RESOURCES_} /opt/html/resources
 echo ""
 echo "--- Done."
 echo ""

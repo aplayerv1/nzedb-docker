@@ -8,7 +8,13 @@ if [[ "${_PATH_CUSTOM_CONFIG}x" == "x" ]]; then
 fi
 
 if [[ -f "${_PATH_CUSTOM_CONFIG}/nzedb/config.php" ]]; then
-    cp "${_PATH_CUSTOM_CONFIG}/nzedb/config.php" "${_PATH_INSTALL_ROOT}/configuration/" || __exit 1;
+    cp "${_PATH_CUSTOM_CONFIG}/nzedb/config.php" "${_PATH_INSTALL_ROOT}/configuration/" 
+    if [[ -f "${_PATH_CUSTOM_CONFIG}/nzedb/ircscraper_settings.php" ]]; then
+        cp "${_PATH_CUSTOM_CONFIG}/nzedb/ircscraper_settings.php" "${_PATH_INSTALL_ROOT}/configuration/"
+    fi
+    if [[ -f "${_PATH_CUSTOM_CONFIG}/nzedb/settings.php" ]]; then
+        cp "${_PATH_CUSTOM_CONFIG}/nzedb/settings.php" "${_PATH_INSTALL_ROOT}/configuration/" || __exit 1;
+    fi
     touch "${_PATH_INSTALL_ROOT}/configuration/install.lock" || __exit 2;
 else
     echo "No custom configuration for nZEDb found in ${_PATH_CUSTOM_CONFIG}/nzedb/config.php .";
