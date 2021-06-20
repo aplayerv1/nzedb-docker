@@ -38,7 +38,7 @@ if (true); then
           pkill tmux
        else
           echo "no errors"
-       fi;
+       fi
     fi
     sleep 60;
 fi
