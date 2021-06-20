@@ -31,6 +31,14 @@ if (true); then
         screen -wipe
     else
        echo "screen is running"
+       echo "Checking if script is running"
+       word="Connection refused in /opt/http/libraries/lithium/data/source/Database.php"
+       if tail -n 100 /opt/http/resources/logs/php_errors_cli.log| grep "$word" | awk '{print $A1}'; then
+          echo "Error Detected restarting tmux"
+          pkill tmux
+       else
+          echo "no errors"
+       fi;
     fi
     sleep 60;
 fi
