@@ -8,7 +8,10 @@ until [[ -f "/opt/http/configuration/install.lock" ]]; do
 done
 until [[ -f "/opt/http/configuration/install.lock" ]]; do
      echo "Importing predb"
-     su - www-data -s /bin/bash -c "$(which php)  /opt/http/cli/data/predb_import_daily_batch.php 0 local true"
+     cd /opt/http/cli/data
+     php predb_import_daily_batch.php 1483246800 local true"
+     echo "Importing Games"
+     php populate_steam_games.php
 done
 
 if (true); then
@@ -30,6 +33,7 @@ if (true); then
        fi
     fi
     sleep 60;
+    tail -n 10 /opt/http/resources/logs/*.log
 fi
 
  
