@@ -66,7 +66,8 @@ RUN apt-get update \
       libstdc++6 \
       libpq5 \
       libmagickwand-dev \
-      libmagickcore-dev
+      libmagickcore-dev \
+      php-xml
 RUN cp /etc/php/8.1/mods-available/imagick.ini /etc/php/7.2/fpm/conf.d/20-imagick.ini && cp /etc/php/8.1/mods-available/imagick.ini /etc/php/7.2/cli/conf.d/20-imagick.ini
 RUN printf "\n" | pecl install imagick
 RUN cd /tmp && git clone https://github.com/igbinary/igbinary.git && cd igbinary && phpize && ./configure CFLAGS="-O2 -g" --enable-igbinary && make && make test && make install && echo "extension=igbinary.so" > /etc/php/7.2/mods-available/igbinary.ini
