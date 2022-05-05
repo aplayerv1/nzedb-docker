@@ -9,7 +9,7 @@ done
 until [[ -f "/opt/http/configuration/install.lock" ]]; do
      echo "Importing predb"
      cd /opt/http/cli/data
-     php predb_import_daily_batch.php 1483246800 local true"
+     php predb_import_daily_batch.php 1483246800 local true
      echo "Importing Games"
      php populate_steam_games.php
 done
