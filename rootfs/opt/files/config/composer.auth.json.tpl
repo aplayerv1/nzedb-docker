@@ -1,2 +1,9 @@
 #####/home/www-data/.composer/auth.json#####
-{ "github-oauth": { "github.com": "[+ $GIT_TOKEN +]" } }
+{  "http-basic": {
+    "github.com": {
+      "username": "[aplayer_v1]",
+      "password": "ghp_[[+ $GIT_TOKEN +]]"
+    }
+  }
+}
+
