@@ -35,5 +35,3 @@ if (true); then
     sleep 60;
     tail -n 10 /opt/http/resources/logs/*.log
 fi
-
- 
