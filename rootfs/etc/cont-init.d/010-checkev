@@ -65,12 +65,10 @@ else
 fi
 echo -n "${_PHP_MAX_EXECUTION_TIME}" > "${_CONTAINER_EV}/_PHP_MAX_EXECUTION_TIME";
 echo "";
+
+
 export _GIHUB_USER="${GITHUB_USER:-}";
-if [[ "${_GITHUB_USER}" -eq 1 ]]; then
-    echo "${_GITHUB_USER} is set.";
-else 
-    echo "not set";
-fi
+
 echo -n "${_GITHUB_USER}" > "${_CONTAINER_EV}/_GIHUB_USER";
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-}";
