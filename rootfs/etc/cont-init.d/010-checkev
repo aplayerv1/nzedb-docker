@@ -67,14 +67,14 @@ echo -n "${_PHP_MAX_EXECUTION_TIME}" > "${_CONTAINER_EV}/_PHP_MAX_EXECUTION_TIME
 echo "";
 
 
-export _GIHUB_USER="${GITHUB_USER:-}";
+export _GITHUB_USER="${GITHUB_USER:-}";
 
-echo -n "${_GITHUB_USER}" > "${_CONTAINER_EV}/_GIHUB_USER";
+echo -n "${_GITHUB_USER}" > "${_CONTAINER_EV}/_GITHUB_USER";
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-}";
 if [[ "${_PHP_SESSION_HANDLER}" == "memcached" ]]; then
     export _PHP_SESSION_HANDLER="memcached";
-    echo "${_PHP_SESSION_HANDLER} is set.";
+    echo "php session handler: ${_PHP_SESSION_HANDLER} is set.";
 else 
     echo "Setting to Default files.";
     export _PHP_SESSION_HANDLER="files";
