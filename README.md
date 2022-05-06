@@ -32,7 +32,7 @@
                     - WEB_SERVER_HTTPS_PORT=443                       # Web server ssl port default is 443
                     - WEB_SERVER_NAME=                                # Web server name I usually use an ip, default is "_", domain name of the web server. E.g. "hub.docker.com".
                     - GIT_TOKEN=                                      # MANDATORY if you don't have one then nothing will happen
-                    - GIT_USER=                                       # MANDATORY if you don't have one then it will do nothing
+                    - GITHUB_USER=                                       # MANDATORY if you don't have one then it will do nothing
                     - PHP_SESSION_HANDLER=                            # PHP session handler only memcached is supported atm. variables "memcached or files"
                     - PHP_SESSION_PATH=172.7.0.4                      # PHP session path for memcached an ip example is a docker memcache ip like bellow, default "/tmp"
                     - PHP_SESSION_PORT=                               # PHP session port memcached port default is 11211, NOTE: if files is set then ip and port don't work
