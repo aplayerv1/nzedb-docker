@@ -71,6 +71,7 @@ if [[ "${_GITHUB_USER}" -eq 1 ]]; then
 else 
     echo "not set";
 fi
+echo -n "${_GITHUB_USER}" > "${_CONTAINER_EV}/_GIHUB_USER";
 
 export _PHP_SESSION_HANDLER="${PHP_SESSION_HANDLER:-}";
 if [[ "${_PHP_SESSION_HANDLER}" == "memcached" ]]; then
