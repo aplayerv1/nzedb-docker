@@ -76,7 +76,7 @@ RUN cd /tmp && wget http://launchpadlibrarian.net/339874908/libav-tools_3.3.4-2_
 RUN phpenmod redis && phpenmod igbinary
 RUN apt-get update
 ADD "https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.gz" "/tmp/s6.tar.gz" 
-RUN tar xfz /tmp/s6.tar.gz -C /
+RUN cd /tmp && tar xfz /tmp/s6.tar.gz -C /
 RUN apt-get clean \
     && rm -rf \
         /tmp/* \

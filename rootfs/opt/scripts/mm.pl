@@ -28,14 +28,10 @@ foreach my $k (keys %ENV) {
     }
 }
 
-if (!exists($tParms{WEB_ROOT})) {
-    $tParms{WEB_ROOT}="";
-}
-
 opendir(my $tdh, $templateDir) or die("Could not open template directory.");
 
 while (my $f = readdir($tdh)) {
-
+        
         next if ($f eq "." || $f eq ".." || $f !~ /^.*\.tpl$/i);
         
         my $output_file;
