@@ -136,20 +136,6 @@ fi
 echo -n "${_PHP_SERIALIZE_HANDLER}" > "${_CONTAINER_EV}/_PHP_SERIALIZE_HANDLER";
 echo "";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export _PHP_MEMORY_LIMIT="${PHP_MEMORY_LIMIT:-1G}"
 if [[ ${_PHP_MEMORY_LIMIT} =~ ^[0-9]+(k|m|g|K|M|G)$ ]]; then
     echo "PHP_MEMORY_LIMIT set to: ${_PHP_MEMORY_LIMIT}"
@@ -229,16 +215,16 @@ else
 fi
 echo ""
 
-export _WEB_ROOT="${WEB_ROOT:-}"
-if [[ "${_WEB_ROOT}" != "/" ]]; then
-    if [[ "${_WEB_ROOT}" =~ ^(.*)/$ ]]; then
-        export _WEB_ROOT="${BASH_REMATCH[1]}"
+export _WEB_SERVER_ROOT="${WEB_SERVER_ROOT:-}"
+if [[ "${_WEB_SERVER_ROOT}" != "/" ]]; then
+    if [[ "${_WEB_SERVER_ROOT}" =~ ^(.*)/$ ]]; then
+        export _WEB_SERVER_ROOT="${BASH_REMATCH[1]}"
     fi
 else
-    export _WEB_ROOT="";
+    export _WEB_SERVER_ROOT="";
 fi
-echo -n "WEB_ROOT set to: ${_WEB_ROOT:-/}"
-echo -n "${_WEB_ROOT}" > "${_CONTAINER_EV}/_WEB_ROOT";
+echo -n "WEB_SERVER_ROOT set to: ${_WEB_SERVER_ROOT:-/}"
+echo -n "${_WEB_SERVER_ROOT}" > "${_CONTAINER_EV}/_WEB_SERVER_ROOT";
 echo ""
 
 export _WEB_SERVER_HTTP_PORT="${WEB_SERVER_HTTP_PORT:-80}"

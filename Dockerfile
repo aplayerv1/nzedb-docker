@@ -3,12 +3,15 @@ LABEL maintainer "Aplayerv1"
 ARG S6_VERSION="v1.19.1.1"
 ARG S6_ARCH="amd64"
 ARG DEBIAN_FRONTEND="noninteractive"
-ARG LANG="en_US.UTF-8"
-ARG LC_ALL="C.UTF-8"
-ARG LANGUAGE="en_US.UTF-8"
 ARG TERM="xterm-256color"
 RUN apt-get update \
-    && apt-get install -y gnupg2 wget
+    && apt-get install -y gnupg2 wget locales
+RUN touch /etc/locale.gen
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8   
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C \
     && echo "deb http://ppa.launchpad.net/nginx/development/ubuntu bionic main" >> /etc/apt/sources.list \
@@ -67,8 +70,9 @@ RUN apt-get update \
       libpq5 \
       libmagickwand-dev \
       libmagickcore-dev \
-      php-xml
-RUN cp /etc/php/8.1/mods-available/imagick.ini /etc/php/7.2/fpm/conf.d/20-imagick.ini && cp /etc/php/8.1/mods-available/imagick.ini /etc/php/7.2/cli/conf.d/20-imagick.ini
+      php-xml \
+      dos2unix
+#RUN cp /etc/php/8.1/fpm/conf.d/20-imagick.ini /etc/php/7.2/fpm/conf.d/20-imagick.ini && cp /etc/php/8.1/fpm/conf.d/20-imagick.ini /etc/php/7.2/cli/conf.d/20-imagick.ini
 RUN printf "\n" | pecl install imagick
 RUN cd /tmp && git clone https://github.com/igbinary/igbinary.git && cd igbinary && phpize && ./configure CFLAGS="-O2 -g" --enable-igbinary && make && make test && make install && echo "extension=igbinary.so" > /etc/php/7.2/mods-available/igbinary.ini
 RUN cd /tmp && git clone https://github.com/nicolasff/phpredis.git && cd /tmp/phpredis && phpize && ./configure --enable-redis-igbinary && make && make install && echo "extension=redis.so" > /etc/php/7.2/mods-available/redis.ini
@@ -90,5 +94,11 @@ RUN cd /usr/local/ && mkdir ssl && cd ssl/ && wget  https://curl.haxx.se/ca/cace
 HEALTHCHECK NONE
 COPY rootfs/ /
 RUN chmod +x -R /opt/scripts
-RUN cp /usr/bin/php7.2 /usr/bin/php
+RUN for file in /etc/cont-init.d/*; do \
+ dos2unix $file; \
+ chmod a+xwr $file;\
+ done && \
+ dos2unix /opt/scripts/* 
+RUN dos2unix /opt/files/config/* && dos2unix /etc/services.d/nginx/run && dos2unix /etc/services.d/php-fpm7.0/run && \
+    dos2unix /etc/services.d/redis/run && dos2unix /etc/services.d/refresh/run
 ENTRYPOINT ["/init"]
