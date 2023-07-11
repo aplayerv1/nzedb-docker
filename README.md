@@ -27,7 +27,7 @@
           #- REFRESH_POSTPROCESS_OPTIONS=nfo mov tv ama     #Default: "nfo mov tv ama" The postprocessing options handed to misc/update/nix/multiprocessing/postprocess.php  
           - RUN_WEB_SERVER=1                                # Enable or disable web server 0 no 1 yes
           - RUN_REFRESH=1                                   # RUN REFRESH Run the updater in the background? If set to "1" then the update script will run in the background. 
-          - WEB_ROOT=/                                      # Default: "/" The web server's web root. 
+          - WEB_SERVER_ROOT=/                                      # Default: "/" The web server's web root. 
           - WEB_SERVER_HTTP_PORT=80                         # Web server port default is 80
           - WEB_SERVER_HTTPS_PORT=443                       # Web server ssl port default is 443
           - WEB_SERVER_NAME=                                # Web server name I usually use an ip, default is "_", domain name of the web server. E.g. "hub.docker.com".
