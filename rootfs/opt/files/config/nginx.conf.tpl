@@ -23,39 +23,39 @@ server {
         add_header Pragma public;
         add_header Cache-Control "public, must-revalidate, proxy-revalidate";
     }
-    [$ if $WEB_ROOT ne '' $]
+    [$ if $WEB_SERVER_ROOT ne '' $]
         location / {
-            return 302 $scheme://[+ $WEB_SERVER_NAME +][+ $WEB_ROOT +]/;
+            return 302 $scheme://[+ $WEB_SERVER_NAME +][+ $WEB_SERVER_ROOT +]/;
         }
-    location [+ $WEB_ROOT +] {
+    location [+ $WEB_SERVER_ROOT +] {
         [$ else $]
             location / {
                 [$ endif $]
                     [$ if $NZEDB_INSTALLED ne '1' $]
-                        if ($is_installed = "0") {
-                            return 302 $scheme://[+ $WEB_SERVER_NAME +][+ $WEB_ROOT +]/install/;
-                        }
+
+                            return 302 $scheme://[+ $WEB_SERVER_NAME +][+ $WEB_SERVER_ROOT +]/install/;
+
                 [$ endif $]
                     alias "[+ $PATH_WEB_SERVER_ROOT +]/";
                 try_files $uri $uri/ @rewrites;
             }
-        location ^~ [+ $WEB_ROOT +]/covers {
+        location ^~ [+ $WEB_SERVER_ROOT +]/covers {
             alias "[+ $PATH_WEB_RESOURCES +]/covers/";
         }
-        location [+ $WEB_ROOT +]/install {
+        location [+ $WEB_SERVER_ROOT +]/install {
             [$ if $NZEDB_INSTALLED eq '1' $]
-                return 302 $scheme://[+ $WEB_SERVER_NAME +][+ $WEB_ROOT +]/;
+                return 302 $scheme://[+ $WEB_SERVER_NAME +][+ $WEB_SERVER_ROOT +]/;
             [$ endif $]
         }
-        location ^~ [+ $WEB_ROOT +]/themes {
+        location ^~ [+ $WEB_SERVER_ROOT +]/themes {
             alias "[+ $PATH_WEB_SERVER_ROOT +]/themes/";
         }
         location @rewrites {
-            rewrite ^[+ $WEB_ROOT +]/([^/\.]+)/([^/]+)/([^/]+)/? [+ $WEB_ROOT +]/index.php?page=$1&id=$2&subpage=$3 last;
-            rewrite ^[+ $WEB_ROOT +]/([^/\.]+)/([^/]+)/?$ [+ $WEB_ROOT +]/index.php?page=$1&id=$2 last;
-            rewrite ^[+ $WEB_ROOT +]/([^/\.]+)/?$ [+ $WEB_ROOT +]/index.php?page=$1 last;
+            rewrite ^[+ $WEB_SERVER_ROOT +]/([^/\.]+)/([^/]+)/([^/]+)/? [+ $WEB_SERVER_ROOT +]/index.php?page=$1&id=$2&subpage=$3 last;
+            rewrite ^[+ $WEB_SERVER_ROOT +]/([^/\.]+)/([^/]+)/?$ [+ $WEB_SERVER_ROOT +]/index.php?page=$1&id=$2 last;
+            rewrite ^[+ $WEB_SERVER_ROOT +]/([^/\.]+)/?$ [+ $WEB_SERVER_ROOT +]/index.php?page=$1 last;
         }
-        location ~* ^[+ $WEB_ROOT +](/.*\.php)$ {
+        location ~* ^[+ $WEB_SERVER_ROOT +](/.*\.php)$ {
 			try_files     $uri =404;
             include /etc/nginx/fastcgi_params;
             fastcgi_buffering off;

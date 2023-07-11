@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
-echo "Starting refresh process."
-exec /opt/scripts/refresh.sh
+#!/usr/bin/execlineb -P
+cd /opt/scripts/
+./refresh.sh
 

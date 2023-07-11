@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bash
 
 [[ -f "/opt/scripts/refresh.conf" ]] && . "/opt/scripts/refresh.conf";
 REFRESH_POSTPROCESS_OPTIONS="${_REFRESH_POSTPROCESS_OPTIONS:-nfo mov tv ama}";
@@ -7,6 +7,7 @@ until [[ -f "/opt/http/configuration/install.lock" ]]; do
     sleep 10;
 done
 until [[ -f "/opt/http/configuration/install.lock" ]]; do
+     mkdir $(PATH_WEB_RESOURCES)/tmp
      echo "Importing predb"
      cd /opt/http/cli/data
      php predb_import_daily_batch.php 1483246800 local true
