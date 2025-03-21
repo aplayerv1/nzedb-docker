@@ -1,4 +1,4 @@
-#!/usr/bin/execlineb -P
-cd /usr/bin
-redis-server /opt/config/nzedb/redis.conf
+#!/usr/bin/with-contenv bash
+echo "Starting redis";
+exec /usr/bin/redis-server /opt/config/nzedb/redis.conf
 

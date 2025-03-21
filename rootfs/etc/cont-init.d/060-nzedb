@@ -2,14 +2,14 @@
 . /opt/scripts/install.rc;
 __check_status;
 
-echo '================================================================================'
-echo 'Running nZEDb installer script as www-data.'
-echo '================================================================================'
-echo ''
-echo '=== Starting ...'
+echo "================================================================================"
+echo "Running nZEDb installer script as www-data."
+echo "================================================================================"
+echo ""
+echo "=== Starting ..."
 /bin/su -s /bin/bash -c '/opt/scripts/install_nzedb.sh' -l www-data
 excode=$?;
-echo '--- Done.'
-echo ''
+echo "--- Done."
+echo ""
 __exit $excode;
 

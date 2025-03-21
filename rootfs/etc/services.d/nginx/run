@@ -1,2 +1,4 @@
-#!/usr/bin/execlineb -P
-nginx -c /etc/nginx/nginx.conf -g "daemon off;"
+#!/usr/bin/with-contenv bash
+echo "Starting NGINX...";
+exec nginx -g 'daemon off;'
+
