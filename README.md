@@ -1,3 +1,5 @@
+Grab the configuration folder from nzedb github edit the settings.php and create config.php 
+
     version: '3'
 
     networks:
@@ -13,7 +15,7 @@
         image: aplayerv1/nzedb:latest
         restart: always
         volumes:
-          - ./config:/opt/config/nzedb
+          - ./config:/opt/config/nzedb 
           - ./nzedb:/opt/http
         environment:
           - TZ=Europe/Lisbon
@@ -76,4 +78,50 @@
           localnet:
             ipv4_address: 172.7.0.4
 
-let me be clear... you need all configs edited and working from nzedb in the configuration folder and put them in the example above ./config
+create config.php example
+
+        <?php
+        
+        //=========================
+        // Config you must change - updated by installer.
+        //=========================
+        define('DB_SYSTEM', 'mysql');
+        define('DB_HOST', '');         // THIS IS THE IP OF THE DB
+        define('DB_PORT', '3306');     // PORT OF DB
+        define('DB_SOCKET', '');
+        define('DB_USER', '');         // DB USER
+        define('DB_PASSWORD', '');     //DB PASSWORD
+        define('DB_NAME', 'nzedb');    //DB NAME
+        define('DB_PCONNECT', false);
+        
+        define('NNTP_USERNAME', '');   // Your newsgroups username
+        define('NNTP_PASSWORD', '');   // your password
+        define('NNTP_SERVER', '');     //your service provider host name "news.newsgrouphosting.com"
+        define('NNTP_PORT', '563');    // your port
+
+        
+        // If you want to use TLS or SSL on the NNTP connection (the NNTP_PORT must be able to support encryption).
+        define('NNTP_SSLENABLED', true);
+        // If we lose connection to the NNTP server, this is the time in seconds to wait before giving up.
+        define('NNTP_SOCKET_TIMEOUT', '120');
+        
+        define('NNTP_USERNAME_A', '');
+        define('NNTP_PASSWORD_A', '');
+        define('NNTP_SERVER_A', '');
+        define('NNTP_PORT_A', '119');
+        define('NNTP_SSLENABLED_A', false);
+        define('NNTP_SOCKET_TIMEOUT_A', '120');
+        
+        // Location to CA bundle file on your system. You can download one here: http://curl.haxx.se/docs/caextract.html
+        define('nZEDb_SSL_CAFILE', '');
+        // Path where openssl cert files are stored on your system, this is a fall back if the CAFILE is not found.
+        define('nZEDb_SSL_CAPATH', '');
+        // Use the aforementioned CA bundle file to verify remote SSL certificates when connecting to a server using TLS/SSL.
+        define('nZEDb_SSL_VERIFY_PEER', '');
+        // Verify the host is who they say they are.
+        define('nZEDb_SSL_VERIFY_HOST', '');
+        // Allow self signed certificates. Note this does not work on CURL as CURL does not have this option.
+        define('nZEDb_SSL_ALLOW_SELF_SIGNED', '1');
+
+
+still working on a better approach
