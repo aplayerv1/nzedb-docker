@@ -15,7 +15,7 @@ Grab the configuration folder from nzedb github edit the settings.php and create
         image: aplayerv1/nzedb:latest
         restart: always
         volumes:
-          - ./config:/opt/config/nzedb 
+          - ./config:/opt/config/nzedb                     #PLEASE CONFIGURATION GRABED FROM NZEDB + config.php must go in here
           - ./nzedb:/opt/http
         environment:
           - TZ=Europe/Lisbon
