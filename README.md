@@ -57,7 +57,7 @@ Grab the configuration folder from nzedb github edit the settings.php and create
           - "9312:9312"
         volumes:
           - ./logs:/var/log/sphinxsearch
-          - ./conf/sphinx.conf:/etc/sphinx/sphinx.conf:ro
+          - ./conf/sphinx.conf:/etc/sphinx/sphinx.conf:ro  # https://raw.githubusercontent.com/nZEDb/nZEDb/refs/heads/0.x/misc/sphinxsearch/sphinx.conf
           - ./search:/var/run/sphinxsearch/
           - ./data:/var/lib/sphinxsearch/data 
         networks:
