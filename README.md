@@ -75,3 +75,5 @@
         networks:
           localnet:
             ipv4_address: 172.7.0.4
+
+let me be clear... you need all configs edited and working from nzedb in the configuration folder and put them in the example above ./config
