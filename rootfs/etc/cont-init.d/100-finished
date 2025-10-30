@@ -35,9 +35,11 @@ else
     echo ""
     __exit 1;
 fi
+if [[ "${_SPHINX_IP}" ]]; then
     echo "SphinxSearch"
     cd /opt/http/misc/sphinxsearch
     echo "Creating Se Tables"
-    php create_se_tables.php 192.168.2.5 9312
+    php create_se_tables.php ${_SPHINX_IP} 9312
     echo "Populating rt_indexes"
     php populate_rt_indexes.php releases_rt
+fi

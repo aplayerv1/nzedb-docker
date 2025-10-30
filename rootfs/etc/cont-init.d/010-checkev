@@ -137,18 +137,10 @@ echo -n "${_PHP_SERIALIZE_HANDLER}" > "${_CONTAINER_EV}/_PHP_SERIALIZE_HANDLER";
 echo "";
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+expor _SPHINX_IP="${SPHINX_IP:-}";
+echo -n "${_SPHINX_IP}" > "${_CONTAINER_EV}/_SPHINX_IP";
+echo "SPHINX_IP set to: ${_SPHINX_IP}";
+echo "";
 
 export _PHP_MEMORY_LIMIT="${PHP_MEMORY_LIMIT:-1G}"
 if [[ ${_PHP_MEMORY_LIMIT} =~ ^[0-9]+(k|m|g|K|M|G)$ ]]; then
